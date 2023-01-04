@@ -1,12 +1,9 @@
 
 public class test {
-	private String name;
 
-	public String getName() {
-		return name;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		System.out.println("hello world");
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
 }
