@@ -5,7 +5,6 @@ public class MemberVO {
 	private String id;
 	private String pwd;
 	private String name;
-	private int age;
 	private String email;
 	private int pnum;
 	private String nname;
@@ -33,13 +32,7 @@ public void setname(String name) {
 public String getname() {
 	return name;
 }
-public void setage(int age) {
-	this.age = age;
-}
 
-public int getage() {
-	return age;
-}
 public void setemail(String email) {
 	this.email = email;
 }
