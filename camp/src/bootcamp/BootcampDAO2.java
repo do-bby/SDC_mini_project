@@ -1,5 +1,5 @@
 package bootcamp;
 
-public class BootcampDAO {
+public class BootcampDAO2 {
 
 }

@@ -9,8 +9,8 @@ public class ConnectDB {
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
 			String jdbcUrl = "jdbc:oracle:thin:@localhost:1521:XE";
-	        String user = "SCOTT";
-	        String passwd = "TIGER";
+	        String user = "mini";
+	        String passwd = "mini";
 			conn = DriverManager.getConnection(jdbcUrl, user, passwd);	
 		} catch (Exception e) {
 			System.out.println("DB접속오류 발생!!");
