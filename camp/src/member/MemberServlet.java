@@ -7,35 +7,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class MemberServlet
- */
+import member.MemberVO;
+
 @WebServlet("/member")
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MemberServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		request.setCharacterEncoding("utf-8");
+		//mnum은 자동생성돼서 어떻게 처리해야 할지 고민중
+		String id = request.getParameter("id");
+		String pwd = request.getParameter("pwd");
+		String name = request.getParameter("name");
+		String email = request.getParameter("email");
+		int pnum = Integer.parseInt(request.getParameter("pnum"));
+		String nname = request.getParameter("nname");
+		
+		MemberVO vo =new MemberVO();
+		vo.setid(id);
+		vo.setpwd(pwd);
+		vo.setname(name);
+		vo.setemail(email);
+		vo.setpnum(pnum);
+		vo.setnname(nname);
+		
+		request.setAttribute("member",vo);
+		request.getRequestDispatcher("/member/MemberView").forward(request,response);
+		
+		
+		
 	}
 
 }
