@@ -1,15 +1,17 @@
 package bootcamp;
 
+import java.sql.Blob;
+
 public class BootcampVO {
-	private int id;
-	private String name;
-	private int img;
-	private String good;
-	private String bad;
-	private int score;
-	private int t_score;
-	private int s_score;
-	private int e_score;
+	private int id;			// 부트캠프 번호
+	private String name;	// 부트캠프 이름
+	private String img;		// 부트캠프 이미지
+	private String good;	// 장점
+	private String bad;		// 단점
+	private int score;		// 총 평점
+	private int t_score;	// 강사진 만족도
+	private int s_score;  	// 교육지원 수준
+	private int e_score;	// 학습환경 만족도
 	public int getId() {
 		return id;
 	}
@@ -22,10 +24,10 @@ public class BootcampVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getImg() {
+	public String getImg() {
 		return img;
 	}
-	public void setImg(int img) {
+	public void setImg(String img) {
 		this.img = img;
 	}
 	public String getGood() {

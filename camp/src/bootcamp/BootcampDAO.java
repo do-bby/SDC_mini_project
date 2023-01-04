@@ -10,7 +10,9 @@ import java.util.List;
 import db.ConnectDB;
 
 
-public class BootcampDAO {
+
+
+public class BootcampDAO<PrepareStatement> {
 	public List<BootcampVO> listAll(){
 		Connection conn = ConnectDB.connect();
 		Statement stmt = null;
@@ -25,7 +27,7 @@ public class BootcampDAO {
 				vo = new BootcampVO();
 				vo.setId(rs.getInt("id"));
 				vo.setName(rs.getString("name"));
-				vo.setImg(rs.getInt("img"));
+				vo.setImg(rs.getString("img"));
 				vo.setGood(rs.getString("good"));
 				vo.setBad(rs.getString("bad"));
 				vo.setScore(rs.getInt("score"));
@@ -42,4 +44,36 @@ public class BootcampDAO {
 		}
 		return list;
 	}
+	
+	
+	public boolean insert(BootcampVO vo) {
+		Connection conn = ConnectDB.connect();
+		boolean result = true;
+		try {
+			PreparedStatement pstmt = conn.prepareStatement("insert into bootcams values(bootcams_seq.nextval,?,?,?,?,?,?,?,?)");
+			pstmt.setString(2, vo.getName());
+			pstmt.setString(3, vo.getImg());
+			pstmt.setString(4, vo.getGood());
+			pstmt.setString(5,vo.getBad());
+			pstmt.setInt(6, vo.getScore());
+			pstmt.setInt(7, vo.getT_score());
+			pstmt.setInt(8, vo.getS_score());
+			pstmt.setInt(9, vo.getE_score());
+			
+		}catch(SQLException e) {
+			result = false;
+			e.printStackTrace();
+		}finally {
+			ConnectDB.close(conn);
+		}
+		return true;
+	}
+	
+	
+	
+
+	
+	
+	
+	
 }
