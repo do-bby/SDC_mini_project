@@ -3,7 +3,7 @@ package bootcamp;
 public class BootcampVO {
 	private int id;
 	private String name;
-	private int img;
+	private String img;
 	private String good;
 	private String bad;
 	private int score;
@@ -22,10 +22,10 @@ public class BootcampVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getImg() {
+	public String getImg() {
 		return img;
 	}
-	public void setImg(int img) {
+	public void setImg(String img) {
 		this.img = img;
 	}
 	public String getGood() {

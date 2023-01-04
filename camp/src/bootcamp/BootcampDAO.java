@@ -25,7 +25,7 @@ public class BootcampDAO {
 				vo = new BootcampVO();
 				vo.setId(rs.getInt("id"));
 				vo.setName(rs.getString("name"));
-				vo.setImg(rs.getInt("img"));
+				vo.setImg(rs.getString("img"));
 				vo.setGood(rs.getString("good"));
 				vo.setBad(rs.getString("bad"));
 				vo.setScore(rs.getInt("score"));
@@ -41,5 +41,9 @@ public class BootcampDAO {
 			ConnectDB.close(conn);
 		}
 		return list;
+	}
+	
+	public boolean insert(BootcampVO vo) {
+		return false;
 	}
 }
