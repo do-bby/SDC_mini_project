@@ -12,7 +12,7 @@ import db.ConnectDB;
 
 
 
-public class BootcampDAO<PrepareStatement> {
+public class BootcampDAO {
 	public List<BootcampVO> listAll(){
 		Connection conn = ConnectDB.connect();
 		Statement stmt = null;
@@ -66,7 +66,7 @@ public class BootcampDAO<PrepareStatement> {
 		}finally {
 			ConnectDB.close(conn);
 		}
-		return true;
+		return result;
 	}
 	
 	
