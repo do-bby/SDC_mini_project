@@ -5,114 +5,63 @@ import java.sql.Blob;
 public class BootcampVO {
 
 	private int id;			// 부트캠프 번호
-	private String name;	// 부트캠프 이름
-	private String img;		// 부트캠프 이미지
-	private String good;	// 장점
-	private String bad;		// 단점
-	private int score;		// 총 평점
-	private int t_score;	// 강사진 만족도
-	private int s_score;  	// 교육지원 수준
-	private int e_score;	// 학습환경 만족도
+	private String b_name;	// 부트캠프 이름
+	private String a_name;	// 학원이 름
+	private String rogo;	// 학원로고
+	private String realimg;	// 실제 학원이미지
+	private String site; // 사이트 링크
+	private int m_id; // 회원 id
 	
 	
 	public int getId() {
 		return id;
 	}
-
-
 	public void setId(int id) {
 		this.id = id;
 	}
-
-
-	public String getName() {
-		return name;
+	public String getB_name() {
+		return b_name;
 	}
-
-
-	public void setName(String name) {
-		this.name = name;
+	public void setB_name(String b_name) {
+		this.b_name = b_name;
 	}
-
-
-	public String getImg() {
-		return img;
+	public String getA_name() {
+		return a_name;
 	}
-
-
-	public void setImg(String img) {
-		this.img = img;
+	public void setA_name(String a_name) {
+		this.a_name = a_name;
 	}
-
-
-	public String getGood() {
-		return good;
+	public String getRogo() {
+		return rogo;
 	}
-
-
-	public void setGood(String good) {
-		this.good = good;
+	public void setRogo(String rogo) {
+		this.rogo = rogo;
 	}
-
-
-	public String getBad() {
-		return bad;
+	public String getRealimg() {
+		return realimg;
 	}
-
-
-	public void setBad(String bad) {
-		this.bad = bad;
+	public void setRealimg(String realimg) {
+		this.realimg = realimg;
 	}
-
-
-	public int getScore() {
-		return score;
+	public String getSite() {
+		return site;
 	}
-
-
-	public void setScore(int score) {
-		this.score = score;
+	public void setSite(String site) {
+		this.site = site;
 	}
-
-
-	public int getT_score() {
-		return t_score;
+	public int getM_id() {
+		return m_id;
 	}
-
-
-	public void setT_score(int t_score) {
-		this.t_score = t_score;
+	public void setM_id(int m_id) {
+		this.m_id = m_id;
 	}
-
-
-	public int getS_score() {
-		return s_score;
-	}
-
-
-	public void setS_score(int s_score) {
-		this.s_score = s_score;
-	}
-
-
-	public int getE_score() {
-		return e_score;
-	}
-
-
-	public void setE_score(int e_score) {
-		this.e_score = e_score;
-	}
-
 
 	@Override
 	public String toString() {
-		return "BootcampVO [id=" + id + ", name=" + name + ", img=" + img + 
-				", good=" + good + 
-				", bad=" + bad +
-				", score=" + score +
-				", t_score=" + t_score +
-				", e_score=" + e_score +
-				", s_score=" + s_score +"]";
+		return "BootcampVO [id=" + id + ", b_name=" + b_name + ", a_name=" + a_name + 
+				", rogo=" + rogo + 
+				", realimg=" + realimg +
+				", site=" + site +
+				", m_id=" + m_id +"]";
 	}
 }
