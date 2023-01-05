@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import member.MemberDAO;
 import member.MemberVO;
 
 @WebServlet("/member")
@@ -15,13 +16,12 @@ public class MemberServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
-		//mnum은 자동생성돼서 어떻게 처리해야 할지 고민중
 		String id = request.getParameter("id");
 		String pwd = request.getParameter("pwd");
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
-		int pnum = Integer.parseInt(request.getParameter("pnum"));
-		String nname = request.getParameter("nname");
+		int pnum = Integer.parseInt(request.getParameter("phone"));
+		String nname = request.getParameter("nick");
 		
 		MemberVO vo =new MemberVO();
 		vo.setid(id);
@@ -31,9 +31,12 @@ public class MemberServlet extends HttpServlet {
 		vo.setpnum(pnum);
 		vo.setnname(nname);
 		
-		request.setAttribute("member",vo);
-		request.getRequestDispatcher("/member/MemberView").forward(request,response);
+		MemberDAO mdao = new MemberDAO();
+		mdao.insertM(vo);
 		
+		request.setAttribute("member",vo);
+		request.getRequestDispatcher("/camp/WebContent/MemberDesign.html").forward(request,response);
+		//요청된 리소스 [/camp/WebContent/MemberDesign.html]은(는) 가용하지 않습니다.에러 나는 중
 		
 		
 	}
