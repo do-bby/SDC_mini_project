@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="review.ReviewVO,bootcamp.BootcampVO,java.util.ArrayList"%>
-
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>BootCamp Review App</title>
-
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy81EbO46BRSnX1DOgg_F84bhsdbku2z4"></script>
 <style type="text/css">
 	@font-face {
     font-family: 'SUIT-Regular';
@@ -54,15 +54,6 @@
 		margin : 20px;
 	}
 	
-	textarea{
-		border-color:#B9B5B5;
-		border-width:3px;
-		border-style:solid;
-		border-radius:10px;
-	}
-	
-	
-	
 	div{
 		display:inline-block;
 	}
@@ -100,7 +91,7 @@
 		display:inline-block;
 		cursor:pointer;
 		color:#ffffff;
-		padding:4px 18px;
+		padding:10px 30px;
 		text-decoration:none;
 		text-shadow:0px 0px 0px #365dd1;
 		margin-left:298px;
@@ -146,8 +137,54 @@
 		width:100%;
 		margin:0,auto;
 	}
-
+	
+	#BtnInsertReview{
+		position:relative;
+		left:400px;
+	
+	}
+	
+	.mapAndScore{
+		display:inline-block;
+	}
+	
 </style>
+
+<script type="text/javascript">
+var dom;
+
+<% %>
+function inputaddress(addr) {
+	var url= 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDy81EbO46BRSnX1DOgg_F84bhsdbku2z4&address='
+						+ encodeURIComponent(addr)
+				
+   	var request = new XMLHttpRequest();
+	request.onload = function(event) {
+		if (request.status == 200) {
+			var obj = JSON.parse(request.responseText);
+			lat = obj.results[0].geometry.location.lat;
+			lng = obj.results[0].geometry.location.lng;
+			dom.innerHTML = '';
+			googlemap(lat, lng);
+		}
+	};
+	request.open('GET', url, true);
+	request.send();
+}
+
+window.onload = function (){
+	dom = document.getElementById('map');
+	document.getElementById('btn').onclick = inputaddress;
+}
+
+const dom = document.getElementById("map");
+if(dom) {
+	new google.maps.Map(dom, {
+    	center: { lat: 37.48650, lng: 127.020600 },
+    	zoom: 16
+  	});
+}     
+</script>
 </head>
 
 <body>
@@ -157,80 +194,31 @@
 			<img id="dotbogi" src=".\images\돋보기.png" width=30px; height=30px;>
 			<input type="text" name="keyword" size="15">
 			<button class="login">로그인</button>
-			
 		</nav>
 	</header>
 	
-
 	<section id="section1">
 		<article id="logoBox">
 			<img id="bootLogo" src=".\images\플레이데이터학원사진.png" width=830px; height=200px;>
-			<a href="https://playdata.io/"><img id="academyLogo" src=".\images\플레이데이터로고.png" width=100px; height=100px;></a>	
+			<a href="https://playdata.io/"><img id="academyLogo" src=".\images\플레이데이터로고.png" width=100px; height=100px;></a>
+				
+			
+		</article>
+		
+		<article>
+			<div id="BtnInsertReview">
+				<button class="BtnReview" onclick="location.href='BootReviewApp.jsp' ">리뷰 등록하기</button>
+			</div>
 		</article>
 	</section>
-
-	
-
 	<section id="section2">
-	<form method="post" action="/camp/review" >
-			<article>	
-				<div class="reviews">강사진 만족도<br><br>
-				<select name = "teachScore">
-		          <option value = "5" selected>⭐⭐⭐⭐⭐</option>
-		          <option value = "4">⭐⭐⭐⭐</option>
-		          <option value = "3">⭐⭐⭐</option>
-		          <option value = "2">⭐⭐</option>
-		          <option value = "1">⭐</option>
-		       </select>
-				</div>
-				<div class="reviews">학습환경 만족도<br><br>
-				<select name = "learnScore">
-		          <option value = "5" selected>⭐⭐⭐⭐⭐</option>
-		          <option value = "4">⭐⭐⭐⭐</option>
-		          <option value = "3">⭐⭐⭐</option>
-		          <option value = "2">⭐⭐</option>
-		          <option value = "1">⭐</option>
-		       </select>
-		       </div>
-				<div class="reviews">교육지원 수준<br><br>
-				<select name = "eduScore">
-		          <option value = "5" selected>⭐⭐⭐⭐⭐</option>
-		          <option value = "4">⭐⭐⭐⭐</option>
-		          <option value = "3">⭐⭐⭐</option>
-		          <option value = "2">⭐⭐</option>
-		          <option value = "1">⭐</option>
-		       </select>
-		       </div>
-				<div class="reviews">총 평점<br><br>
-				<select name = "totalScore">
-		          <option value = "5" selected>⭐⭐⭐⭐⭐</option>
-		          <option value = "4">⭐⭐⭐⭐</option>
-		          <option value = "3">⭐⭐⭐</option>
-		          <option value = "2">⭐⭐</option>
-		          <option value = "1">⭐</option>
-		       </select>
-		       </div>
-		
-			</article>
-		
-		
-		
-			<article>
-			
-			<input type="hidden" name="action" value="insert"> 
-			<p>좋았던 점</p>
-				<textarea  name= "goodmemo" rows=7 cols=100% ></textarea><br>
-			<p>아쉬웠던 점</p>
-				<textarea  name= "badmemo" rows=7 cols=100% ></textarea><br>
-				<div>
-					<br>
-					<input class="BtnReview" type="submit" value="후기 제출하기">
-				</div>	
-			
-			</article>
-			</form>
-		</section>
-
+		<article class="mapAndScore">
+		<div id="map" style="width:300px; height:200px;"></div>
+		</article>
+		<article class="mapAndScore">
+		평점들 
+		</article>
+	</section>
 </div>	
 </body>
 

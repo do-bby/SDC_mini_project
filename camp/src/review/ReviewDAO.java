@@ -23,15 +23,14 @@ public class ReviewDAO {
 				ReviewVO vo = null;
 				while (rs.next()) {
 					vo = new ReviewVO();
-					vo.setId(rs.getInt("id"));
-					vo.setGood(rs.getString("b_name"));
-					vo.setBad(rs.getString("a_name"));
-					vo.setScore(rs.getInt("score"));
-					vo.setT_score(rs.getInt("t_score"));
-					vo.setS_score(rs.getInt("s_score"));
-					vo.setE_score(rs.getInt("e_score"));
-					vo.setB_id(rs.getInt("b_id"));
-					vo.setM_id(rs.getInt("m_id"));
+					vo.setGood(rs.getString("goodcom"));
+					vo.setBad(rs.getString("badcom"));
+					vo.setScore(rs.getInt("bscope"));
+					vo.setT_score(rs.getInt("instsat"));
+					vo.setS_score(rs.getInt("edusat"));
+					vo.setE_score(rs.getInt("learnsat"));
+					vo.setB_id(rs.getInt("bnum"));
+					vo.setM_id(rs.getInt("mnum"));
 				
 					list.add(vo);
 				}
@@ -76,16 +75,18 @@ public class ReviewDAO {
 		public boolean insert(ReviewVO vo) {
 			Connection conn = ConnectDB.connect();
 			boolean result = true;
-			try {//
-				PreparedStatement pstmt = conn.prepareStatement("insert into reviews values(reviews_seq.nextval,?,?,?,?,?,?,?,?)");
-				pstmt.setString(2, vo.getGood());
-				pstmt.setString(3, vo.getBad());
-				pstmt.setInt(4, vo.getScore());
-				pstmt.setInt(5,vo.getT_score());
-				pstmt.setInt(6, vo.getS_score());
-				pstmt.setInt(7, vo.getE_score());
-				pstmt.setInt(8, vo.getB_id());
-				pstmt.setInt(9, vo.getM_id());
+			try {
+				PreparedStatement pstmt = conn.prepareStatement("insert into reviews values(reviewsseq.nextval,?,?,?,?,?,?,?,?)");
+				pstmt.setString(1, vo.getGood());
+				pstmt.setString(2, vo.getBad());
+				pstmt.setInt(3, vo.getScore());
+				pstmt.setInt(4,vo.getT_score());
+				pstmt.setInt(5, vo.getS_score());
+				pstmt.setInt(6, vo.getE_score());
+				pstmt.setInt(7, vo.getB_id());
+				pstmt.setInt(8, vo.getM_id());
+				
+				pstmt.executeUpdate();
 				
 			}catch(SQLException e) {
 				result = false;

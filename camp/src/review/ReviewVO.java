@@ -1,7 +1,8 @@
 package review;
 
 public class ReviewVO {
-	private int id;
+	
+	private int id; // 리뷰아이디
 	private String good; //장점
 	private String bad; //단점
 	private int score; // 총점
@@ -10,12 +11,16 @@ public class ReviewVO {
 	private int e_score; // 학습환경 만족도
 	private int b_id; // 부트캠프정보 fk
 	private int m_id; // 회원정보 fk
+	
+	
+	
 	public int getId() {
 		return id;
 	}
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getGood() {
 		return good;
 	}
