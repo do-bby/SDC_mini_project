@@ -4,29 +4,21 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인 </title>
-<form action="login" method="post">
-	<fieldset>
-	<table>
-	<tr>	
-		<td class="td_left">
-		<label for="id">아이디:</label>
-		</td>
-		
-		<td class="td_ right">
-		<input type="text" name="id" id="id"/>
-		</td>
-	</tr>
-	<tr>	
-		<td class="td_left">
-		<label for="passwd">비밀번호:</label>
-		</td>	
-		<td class="td_ right">
-		<input type="password" name="passwd" id="passwd"/>
-		</td>
-	</tr>
-	</table>
-	<input type="submit" value="로그인" id="selectButton"/>
-	</fieldset>
-</form>
+<style type="text/css">
+#login_main{
+	display: inline-block;
+	text-align: center;
+}
+
+</style>
+<div id="login_main">
+	<h2>로그인</h2><hr>
+	<form method="post" action="login">
+		<input type="hidden" name="action" value="login">  
+		<input placeholder="아이디를 입력하세요" name="id"><br>
+		<input type="pwd" placeholder="패스워드를 입력하세요" name="pwd"><br>
+		<input type="submit" value="로그인">
+	</form>
+</div>
 </body>
 </html>
