@@ -1,6 +1,9 @@
 package member;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,10 +38,25 @@ public class MemberServlet extends HttpServlet {
 		mdao.insertM(vo);
 		
 		request.setAttribute("member",vo);
-		request.getRequestDispatcher("/camp/WebContent/MemberDesign.html").forward(request,response);
-		//요청된 리소스 [/camp/WebContent/MemberDesign.html]은(는) 가용하지 않습니다.에러 나는 중
-		
+		request.getRequestDispatcher("/MemberDesign.html").forward(request,response);
+
 		
 	}
-
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/json; charset=utf-8");
+		request.setCharacterEncoding("utf-8");
+		String userid = request.getParameter("idinput");
+	    MemberDAO dao = new MemberDAO();
+	    boolean result = dao.duplicateIdCheck(userid);
+	    
+	    response.setContentType("text/html;charset=UTF-8");
+	    request.setAttribute("idCheck", result);
+	    request.setAttribute("userId", userid);
+	    
+	    RequestDispatcher idcheck = request.getRequestDispatcher("/IdCheckForm.jsp");
+	    idcheck.forward(request, response);
+	}
 }
+
+
