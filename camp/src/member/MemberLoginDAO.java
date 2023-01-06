@@ -12,6 +12,7 @@ import member.MemberVO;
 import db.ConnectDB;
 
 public class MemberLoginDAO {
+	//로그인
 	public boolean selectLogin(MemberVO vo) {
 		
 		boolean result = false;//초기에는 false로 로그인시 true로 변경
@@ -27,7 +28,7 @@ public class MemberLoginDAO {
 					"select decode(count(*), 1, 'true', 'false') as result "
 				    + "from members "
 				    + "where id= ? "
-				    + "and pwd= ?"
+				    + "and pwd= ? "
 					);
 			pstmt.setString(1, id); //첫번째 물음표에 id 값으로 바꿈
 			pstmt.setString(2, pwd); //두번째 물음표에 pwd 값으로 바꿈
@@ -45,5 +46,10 @@ public class MemberLoginDAO {
 		}
 		
 		return result;
+	}
+	
+	//비밀번호 찾기
+	public void selectPwd(MemberVO vo) {
+		
 	}
 }

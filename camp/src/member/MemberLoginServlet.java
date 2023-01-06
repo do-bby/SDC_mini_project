@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 import member.MemberVO;
 import member.MemberLoginDAO;
 
-@WebServlet("/login")
+@WebServlet("/login")//이거 중요함 action 값에 이 값을 넣어줘야 알아서 처리됨
 public class MemberLoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
@@ -28,11 +28,10 @@ public class MemberLoginServlet extends HttpServlet {
 		doHandle(request, response);
 	}
 	
-	//핸들러로 알아서 구분
+	//핸들러로 알아서 구분. 위에 get post 안에는 doHandle메서드를 넣어주면됨.
 	protected void doHandle(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		PrintWriter out = response.getWriter();
 		
 		//액션, 아이디, 패스워드 파라미터 값 가져옴
 		String action = request.getParameter("action"); 
@@ -48,19 +47,27 @@ public class MemberLoginServlet extends HttpServlet {
 		vo.setpwd(pwd);
 		
 		if(action.equals("login")) {//액션값이 login 이면
-			 result = dao.selectLogin(vo); //vo값(지금은 id,pwd값만 있음)넣고 호출
+			result = dao.selectLogin(vo); //vo값(지금은 id,pwd값만 있음)넣고 호출
+			//로그인기능
+			if(result) {
+				HttpSession session = request.getSession();
+				session.setAttribute("isLogOn", true);	//세션에 isLogOn이라는 이름으로 true를 저장
+				session.setAttribute("login.id", id);	//id와 pw를 세션에 저장.
+				session.setAttribute("login.pwd", pwd);
+				RequestDispatcher rd = request.getRequestDispatcher("/BootReviewApp.jsp");//로그인이 완료되면 이 페이지로 이동
+				rd.forward(request, response);
+			} else {
+				request.setAttribute("msg", " 아이디 또는 비밀번호를 잘못 입력했습니다. <br> 입력하신 내용을 다시 확인해주세요.");//msg 부분에 이 값을 띄워줌
+				RequestDispatcher rd = request.getRequestDispatcher("/MemberLogin.jsp"); //로그인 실패시 이 페이지로 이동
+				rd.forward(request, response);
+			}
+		}else if(action.equals("findpwd")) { //action 값이 findpwd 이면
+			
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/BootReviewApp.jsp");
+			rd.forward(request, response);
 		}
 		
-		if(result) {
-			HttpSession session = request.getSession();
-			session.setAttribute("isLogOn", true);	//세션에 isLogOn이라는 이름으로 true를 저장
-			session.setAttribute("login.id", id);	//id와 pw를 세션에 저장.
-			session.setAttribute("login.pwd", pwd);
-			
-		} else {
-			//out.print("<html><body><h1>아이디가 틀립니다.</h1><br><h3><a href='/login'>다시</a></h3></body></html>");
-		}
-		RequestDispatcher rd = request.getRequestDispatcher("/main.jsp");
-		rd.forward(request, response);
+		
 	}
 }

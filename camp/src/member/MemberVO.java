@@ -8,6 +8,8 @@ public class MemberVO {
 	private String email;
 	private int pnum;
 	private String nname;
+	private String question;
+	private String answer;
 
 
 public void setid(String id) {
@@ -53,5 +55,21 @@ public void setnname(String nname) {
 
 public String getnname() {
 	return nname;
+	}
+
+public void setquestion(String question) {
+	this.question = question;
+}
+
+public String getquestion() {
+	return question;
+	}
+
+public void setanswer(String answer) {
+	this.answer = answer;
+}
+
+public String getanswer() {
+	return answer;
 	}
 }

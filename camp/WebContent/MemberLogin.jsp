@@ -17,7 +17,11 @@
 		<input type="hidden" name="action" value="login">  
 		<input placeholder="아이디를 입력하세요" name="id"><br>
 		<input type="pwd" placeholder="패스워드를 입력하세요" name="pwd"><br>
+		<aside>
+			<h4 style= color:red>${ msg }</h4>
+		</aside> 
 		<input type="submit" value="로그인">
+		<a href="/camp/MemberFind.jsp">비밀번호 찾기</a>
 	</form>
 </div>
 </body>
