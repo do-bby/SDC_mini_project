@@ -180,21 +180,26 @@ $('.recovery .button').on('click', function(event) {
 									
 									function openIdCheck(){
 										window.name = "parentForm";
-										window.open("IdCheckForm.jsp","chkForm","width=500,height=300");
-									}									
+										window.open("IdCheckForm.jsp","idchkForm","width=500,height=300");
+									}	
+									
+									function opennickCheck(){
+										window.name = "parentForm";
+										window.open("NickCheckForm.jsp","nickchkForm","width=500,height=300");
+									}
 									</script>
 						<!-- TABS CONTENT SIGNUP -->
 						<div id="signup-tab-content">
-							<form class="signup-form" action="/member" method="post" name="puserInfo">
-								<input type="text" class="input" id = "id" name="id" autocomplete="off" placeholder="아이디를 입력하세요" required> 
-								<input type="button" value="중복확인" onclick="openIdCheck()">
+							<form class="signup-form" action="/member" method="post" name="userInfo">
+								<input type="text" class="input" id = "id" name="id" autocomplete="off" placeholder="아이디를 입력하세요" style="width: 75%;" required> 
+								<input type="button" value="중복확인" style="width: 130px ;height:50px; margin:0 0 0 0;" onclick="openIdCheck()">
 								<input type="hidden" name="idDuplication" value="idUncheck">
-									<input type="password" class="input" name="pwd" autocomplete="off"placeholder="패스워드를 입력하세요" required><br> 
-									<input type="text" class="input" name="name" autocomplete="off" placeholder="이름을 입력하세요" required><br> 
-									<input type="text" class="input" name="email" autocomplete="off" placeholder="이메일을 입력하세요(@포함기입)" required><br> 
-									<input type="text" class="input" name="phone" autocomplete="off" placeholder="전화번호를 입력하세요('-'없이 기입)" maxlength ="11" required><br> 
-									<input type="text" class="input" name="nick" autocomplete="off" placeholder="닉네임을 입력하세요" required>
-									<input type="button" value="중복확인" onclick="opennickCheck()">
+								<input type="password" class="input" name="pwd" autocomplete="off"placeholder="패스워드를 입력하세요" required><br> 
+								<input type="text" class="input" name="name" autocomplete="off" placeholder="이름을 입력하세요" required><br> 
+								<input type="text" class="input" name="email" autocomplete="off" placeholder="이메일을 입력하세요(예시_myemail@naver.com)" required><br> 
+								<input type="text" class="input" name="phone" autocomplete="off" placeholder="전화번호를 입력하세요('-'없이 입력해주세요)" maxlength ="11" required><br> 
+								<input type="text" class="input" id = "nick" name="nick" autocomplete="off" style="width: 75%;"placeholder="닉네임을 입력하세요" required>
+								<input type="button" value="중복확인" style="width: 130px;height:50px;  margin:0 0 0 0;" onclick="opennickCheck()">
 								<input type="hidden" name="nickDuplication" value="nickUncheck">
 									<input type="submit" class="button" onclick="checkvalue()" value="회원가입 완료하기">
 									

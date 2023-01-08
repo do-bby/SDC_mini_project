@@ -51,7 +51,6 @@ public class MemberDAO {
 		 	Connection conn = ConnectDB.connect();
 	        PreparedStatement pstm = null;
 	        ResultSet rs = null;
-	        boolean x= false;
 	        
 	        try {
 	            // 쿼리
@@ -62,9 +61,41 @@ public class MemberDAO {
 	            pstm.setString(1, id);
 	            rs = pstm.executeQuery();
 	            
-	            if(rs.next()) x= true; //해당 아이디 존재
+	            if(rs.next()) {
+	            	return true; //해당 아이디 존재
+	            }else {
+	            	return false;
+	            }
+	                
 	            
-	            return x;
+	        } catch (Exception sqle) {
+	            throw new RuntimeException(sqle.getMessage());
+	        } finally {
+	        	close(pstm,null,conn);
+	        }
+	    }
+	 
+	 public boolean duplicateNicknameCheck(String nickname)
+	    {
+		 	Connection conn = ConnectDB.connect();
+	        PreparedStatement pstm = null;
+	        ResultSet rs = null;
+	        
+	        try {
+	            // 쿼리
+	            StringBuffer query = new StringBuffer();
+	            query.append("SELECT ID FROM members WHERE nname=?");
+	                        
+	            pstm = conn.prepareStatement(query.toString());
+	            pstm.setString(1, nickname);
+	            rs = pstm.executeQuery();
+	            
+	            if(rs.next()) {
+	            	return true; //해당 아이디 존재
+	            }else {
+	            	return false;
+	            }
+	                
 	            
 	        } catch (Exception sqle) {
 	            throw new RuntimeException(sqle.getMessage());

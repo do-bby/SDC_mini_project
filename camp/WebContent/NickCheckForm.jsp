@@ -4,26 +4,26 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>아이디 중복확인</title>
+<title>닉네임 중복확인</title>
 <script type="text/javascript">
 
 function pValue(){
-	document.getElementById("userId").value = opener.document.getElementById("id").value;
-	var id = document.getElementById("userId").value;
-	if(!id){
-		alert("아이디를 입력하지 않았습니다.");
+	document.getElementById("nickname").value = opener.document.getElementById("nick").value;
+	var nn = document.getElementById("nickname").value;
+	if(!nn){
+		alert("닉네임을 입력하지 않았습니다.");
 	}
 }
 
 
 // 사용하기 클릭 시 부모창으로 값 전달 
 function sendCheckValue(){
-    // 중복체크 결과인 idCheck 값을 전달한다.
-    opener.document.userInfo.idDuplication.value ="idCheck";
-    // 회원가입 화면의 ID입력란에 값을 전달
-    opener.document.userInfo.id.value = document.getElementById("userId").value;
+    // 중복체크 결과인 nickCheck 값을 전달한다.
+    opener.document.userInfo.nickDuplication.value ="nickCheck";
+    // 회원가입 화면의 닉네임 입력란에 값을 전달
+    opener.document.userInfo.nick.value = document.getElementById("nickname").value;
     if (opener != null) {
-        opener.idchkForm = null;
+        opener.nickchkForm = null;
         self.close();
     }
 } 
@@ -64,19 +64,19 @@ input[type=button]{
 <body onload="pValue()">
 <div id = "wrap">
 	<br>
-	<b><font size="5" color = "gray">✓ 아이디 중복체크 ✓</font></b>
+	<b><font size="5" color = "gray">✓ 닉네임 중복체크 ✓</font></b>
 	<hr size="1" width="460">
 	<br>
 	<div id = "chk">
 	<form action="member" method="get">
-		<input type="hidden" name="input" value="idform"> 
-		<input type="text" name="input" id="userId" size ="40">
+		<input type="hidden" name="input" value="nickform"> 
+		<input type="text" name="input" id="nickname" size ="40">
 		<input type="submit" value="중복확인" >
 	<%
-	if (request.getAttribute("confirmid") != null) {
+	if (request.getAttribute("confirmnick") != null) {
 %>
 	<script>
-		alert('${ confirmid }');
+		alert('${ confirmnick }');
 		<% } %>
 	</script>
 	<div id ="msg"></div>
