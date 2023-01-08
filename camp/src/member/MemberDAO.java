@@ -84,7 +84,7 @@ public class MemberDAO {
 	        try {
 	            // 쿼리
 	            StringBuffer query = new StringBuffer();
-	            query.append("SELECT ID FROM members WHERE nname=?");
+	            query.append("SELECT nname FROM members WHERE nname=?");
 	                        
 	            pstm = conn.prepareStatement(query.toString());
 	            pstm.setString(1, nickname);
