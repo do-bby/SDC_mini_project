@@ -10,42 +10,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/bootcamp")
-public class BootcampServlet extends HttpServlet {
+import review.ReviewDAO;
+
+@WebServlet("/goReviews")
+public class goReviewsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public BootcampServlet() {super();}
+    public goReviewsServlet() {super();}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String keyword = request.getParameter("keyword");
-		String id = request.getParameter("id");
-		String action = request.getParameter("action");
-		BootcampDAO dao = new BootcampDAO();
-		request.setAttribute("list", dao.listAll());
+		int bnum = Integer.parseInt(request.getParameter("bnum"));
+		BootcampDAO bDao = new BootcampDAO();
+		ReviewDAO rDao = new ReviewDAO();
+		// BootMainYebin.jsp에서 bnum 이라는 이름으로 부트캠프 번호가 넘어옴 -> bnum에 맞는 부트캠프를 검색해서 그 객체의 변수들을 반환 
 		
 		
-		if(keyword == null) {
-			if(action != null && action.equals("delete")) {
-				boolean result = dao.delete(Integer.parseInt(id));
-				if (result) {
-					request.setAttribute("msg", "의 대한 정보가 성공적으로 삭제되었습니다.");
-				} else {
-					request.setAttribute("msg", "의 대한 정보가 삭제되지 않았습니다.");
-				}				
-			}
+		if(bnum != 0) {
+			request.setAttribute("bvo", bDao.listOne(bnum));
+			request.setAttribute("reviewList", rDao.TheBootcampList(bnum) );
+			RequestDispatcher rd = request.getRequestDispatcher("BootReviews.jsp");
+			rd.forward(request, response);
 		}
-		
-		else {
-			List<BootcampVO> list = dao.search(keyword);
-			if (list != null && list.size() == 0) {
-				request.setAttribute("msg", keyword + "의 대한 정보가 없습니다.");
-			} else {
-				request.setAttribute("list", dao.search(keyword));
-			}
-		}
-		RequestDispatcher rd = request.getRequestDispatcher("BootMainYebin.jsp");
-		rd.forward(request, response);
 		
 	}
 /*
@@ -83,7 +69,7 @@ public class BootcampServlet extends HttpServlet {
 			} else {
 				request.setAttribute("msg", "등록되지 않았습니다.");
 			}
-		} else {
+		} else if (action == "search"){
 			boolean result = dao.update(vo);
 			if (result) {			
 				request.setAttribute("msg", "성공적으로 수정되었습니다.");			

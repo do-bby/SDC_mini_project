@@ -41,7 +41,7 @@ public class ReviewDAO {
 			}
 			return list;
 		}
-		//선택된 리뷰 불러오기
+		//특정 회원이 쓴 리뷰 불러오기
 		public ReviewVO listOne(int id){
 			Connection conn = ConnectDB.connect();
 			Statement stmt = null;
@@ -53,15 +53,15 @@ public class ReviewDAO {
 						"select rnum,goodcom,badcom,bscope,instsat,edusat,learnsat,bnum,mnum from reviews where rnum = "+id);
 				while (rs.next()) {
 					vo = new ReviewVO();
-					vo.setId(rs.getInt("id"));
-					vo.setGood(rs.getString("b_name"));
-					vo.setBad(rs.getString("a_name"));
-					vo.setScore(rs.getInt("score"));
-					vo.setT_score(rs.getInt("t_score"));
-					vo.setS_score(rs.getInt("s_score"));
-					vo.setE_score(rs.getInt("e_score"));
-					vo.setB_id(rs.getInt("b_id"));
-					vo.setM_id(rs.getInt("m_id"));
+					vo.setId(rs.getInt("rnum"));
+					vo.setGood(rs.getString("goodcom"));
+					vo.setBad(rs.getString("badcom"));
+					vo.setScore(rs.getInt("bscope"));
+					vo.setT_score(rs.getInt("instsat"));
+					vo.setS_score(rs.getInt("edusat"));
+					vo.setE_score(rs.getInt("learnsat"));
+					vo.setB_id(rs.getInt("bnum"));
+					vo.setM_id(rs.getInt("mnum"));
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -70,6 +70,39 @@ public class ReviewDAO {
 			}
 			return vo;
 		}
+		
+		//특정 부트캠프의 리뷰 불러오기
+		public List<ReviewVO> TheBootcampList(int bnum){
+			Connection conn = ConnectDB.connect();
+			Statement stmt = null;
+			ResultSet rs = null;
+			ReviewVO vo = null;
+			List<ReviewVO> list = new ArrayList<>();
+			try {
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select rnum,goodcom,badcom,bscope,instsat,edusat,learnsat,bnum,mnum from reviews"
+						+ " where bnum = "+bnum);
+				while (rs.next()) {
+					vo = new ReviewVO();
+					vo.setId(rs.getInt("rnum"));
+					vo.setGood(rs.getString("goodcom"));
+					vo.setBad(rs.getString("badcom"));
+					vo.setScore(rs.getInt("bscope"));
+					vo.setT_score(rs.getInt("instsat"));
+					vo.setS_score(rs.getInt("edusat"));
+					vo.setE_score(rs.getInt("learnsat"));
+					vo.setB_id(rs.getInt("bnum"));
+					vo.setM_id(rs.getInt("mnum"));
+								
+					list.add(vo);
+				}
+			} catch (SQLException e) {
+					e.printStackTrace();
+			} finally {
+						ConnectDB.close(conn);
+					}
+			return  list;
+			}
 		
 		//리뷰 등록하기
 		public boolean insert(ReviewVO vo) {

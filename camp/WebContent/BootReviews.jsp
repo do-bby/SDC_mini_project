@@ -39,25 +39,23 @@
 		width:880px;
 	}
 	
-	#section2 {
+	#section2,#section3 {
 	
 		border-color:#B9B5B5;
 		border-width:3px;
 		border-style:solid;
-		margin:auto;
+		margin:20px auto;
 		width:830px; 
 		border-radius:10px;
+		
 	}
 	
+
 	
 	article{
 		margin : 20px;
 	}
-	
-	div{
-		display:inline-block;
-	}
-	
+
 	.login{
 		box-shadow:inset 0px -3px 7px -36px #29bbff;
 		background:linear-gradient(to bottom, #95cff0 5%, #058fff 100%);
@@ -96,26 +94,20 @@
 		text-shadow:0px 0px 0px #365dd1;
 		margin-left:298px;
 	}
-	.BtnReview:hover {
+	.BtnInsertReview:hover {
 		background:linear-gradient(to bottom, #058fff 5%, #95cff0 100%);
 		background-color:#058fff;
 	}
-	.BtnReview:active {
+	.BtnInsertReview:active {
 		position:relative;
 		top:1px;
-	}
-	
-	.reviews{
-		text-align:center;
-		margin:28px;
-		
 	}
 	
 	#academyLogo{
 		border:3px solid #B9B5B5;
 		position:absolute;
 		z-index:2;
-		bottom:20px;
+		bottom:0px;
 		left:20px;
 		border-radius:10px;
 	}
@@ -126,10 +118,22 @@
 		border-radius:10px;
 	}
 	
+	#aname{
+		position:absolute;
+		z-index:2;
+		left:150px;
+		bottom:0px;
+		background-color:#AFB8BB;
+		border-radius:5px;
+		padding:5px;
+		margin:0px;
+		
+	}
+	
 	#logoBox{
 	position:relative;
 	width: 100%;
-	height: 280px;	
+	height: 350px;	
 	top:20px;
 	}
 
@@ -147,44 +151,43 @@
 	.mapAndScore{
 		display:inline-block;
 	}
+	.star{
+		background: url(https://jpassets.jobplanet.co.kr/production/uploads/material/media/8572/icon_star_full.png) no-repeat left top/auto 100%;
+		overflow: hidden;
+    	display: inline-block;
+	}
 	
+	.reviewBox{
+		border-color:#B9B5B5;
+		border-width:3px;
+		border-style:solid;
+		height:80px;
+		padding:10px;
+		border-radius:10px;
+		position:relative;
+	}
+	
+	#reviewBox{
+		border-color:#B9B5B5;
+		border-width:3px;
+		border-style:solid;
+		border-radius:10px;
+		height:280px;
+		width:750px;
+		margin:30px auto;
+		
+		
+	}
+	
+	#reviewBox2{
+	 	width:400px;
+	 	position:relative;
+	 	left:300px;
+	 	top:5px;
+	}
 </style>
 
-<script type="text/javascript">
-var dom;
 
-<% %>
-function inputaddress(addr) {
-	var url= 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDy81EbO46BRSnX1DOgg_F84bhsdbku2z4&address='
-						+ encodeURIComponent(addr)
-				
-   	var request = new XMLHttpRequest();
-	request.onload = function(event) {
-		if (request.status == 200) {
-			var obj = JSON.parse(request.responseText);
-			lat = obj.results[0].geometry.location.lat;
-			lng = obj.results[0].geometry.location.lng;
-			dom.innerHTML = '';
-			googlemap(lat, lng);
-		}
-	};
-	request.open('GET', url, true);
-	request.send();
-}
-
-window.onload = function (){
-	dom = document.getElementById('map');
-	document.getElementById('btn').onclick = inputaddress;
-}
-
-const dom = document.getElementById("map");
-if(dom) {
-	new google.maps.Map(dom, {
-    	center: { lat: 37.48650, lng: 127.020600 },
-    	zoom: 16
-  	});
-}     
-</script>
 </head>
 
 <body>
@@ -192,22 +195,30 @@ if(dom) {
 	<header>
 		<nav> 
 			<img id="dotbogi" src=".\images\돋보기.png" width=30px; height=30px;>
-			<input type="text" name="keyword" size="15">
+			<input type="text" name="keyword" size="15" style="margin:10px;">
 			<button class="login">로그인</button>
 		</nav>
 	</header>
 	
 	<section id="section1">
+	<%
+	BootcampVO bvo = (BootcampVO)request.getAttribute("bvo");
+	
+	if(bvo != null){
+	%>
 		<article id="logoBox">
-			<img id="bootLogo" src=".\images\플레이데이터학원사진.png" width=830px; height=200px;>
-			<a href="https://playdata.io/"><img id="academyLogo" src=".\images\플레이데이터로고.png" width=100px; height=100px;></a>
-				
-			
-		</article>
+			<img id="bootLogo" src=".\images\<%=bvo.getRealimg() %>" width=830px; height=300px;>
+			<a href=<%=bvo.getSite() %>><img id="academyLogo" src=".\images\<%=bvo.getRogo() %>" width=100px; height=100px;></a>
+			<h3 id="aname"><%= bvo.getA_name() %> - <%= bvo.getB_name()%></h3>
+		</article>		
+	<%
+	}
+	%>		
+		
 		
 		<article>
 			<div id="BtnInsertReview">
-				<button class="BtnReview" onclick="location.href='BootReviewApp.jsp' ">리뷰 등록하기</button>
+				<button class="BtnReview" onclick="location.href='/camp/review?bnum=<%=bvo.getId()%>'">리뷰 등록하기</button>
 			</div>
 		</article>
 	</section>
@@ -216,9 +227,71 @@ if(dom) {
 		<div id="map" style="width:300px; height:200px;"></div>
 		</article>
 		<article class="mapAndScore">
-		평점들 
+			<p>강사진 만족도</p> <span class="star" style="width:100%;">star</span>
+			<p>학습환경 만족도</p><span class="star" style="width:100%;">star</span>
+			<p>교육지원 수준</p> <span class="star" style="width:100%;">star</span>
 		</article>
 	</section>
+	<section id="section3"">
+	<%
+	ArrayList<ReviewVO> list = (ArrayList<ReviewVO>)request.getAttribute("reviewList");
+	if (list != null){
+		
+	%>
+<% 	
+		for(ReviewVO rvo : list){
+%>
+			<article>
+				<div id="reviewBox"> 
+					<div id="reviewBox2">
+					<span style="color:red;">장점</span>
+					<div class="reviewBox"><%=rvo.getGood() %></div>
+					<span class="text" style="color:blue">단점</span>
+					<div class="reviewBox"><%=rvo.getBad() %></div>
+					</div>
+				</div>
+			</article>
+<%
+		}
+%>
+	<%
+	}
+		
+	%>		
+				
+	</section>
+	<script type="text/javascript">
+    	const dom = document.getElementById("map");
+    	url= 'https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyDy81EbO46BRSnX1DOgg_F84bhsdbku2z4&address='+'<%=bvo.getAddress()%>'
+		
+    	var request = new XMLHttpRequest();
+		request.onload = function(event) {
+			if (request.status == 200) {
+				var obj = JSON.parse(request.responseText);
+				lat = obj.results[0].geometry.location.lat;
+				lng = obj.results[0].geometry.location.lng;
+				dom.innerHTML = '';
+				googleMap(lat, lng);
+			}
+		};
+		
+		request.open('GET', url, true);
+		request.send();
+	
+		// 위도와 경도를 매개변수로 받아 지도를 생성
+		function googleMap(latp,lngp){
+			var latlng = {lat:latp,lng:lngp}
+			var map = new google.maps.Map(dom,{
+				center:latlng,
+				zoom: 18
+			})
+			
+			// 마커 생성
+			new google.maps.Marker({position: latlng, map:map})
+		};
+							
+</script>
+	
 </div>	
 </body>
 

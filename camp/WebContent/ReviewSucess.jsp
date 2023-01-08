@@ -77,7 +77,7 @@
 		<div>
 			<h3>${ msg }</h3>
 			<hr>
-			<button class="BtngoReviews" onclick="location.href='BootReviews.jsp' ">리뷰 확인하러가기</button>
+			<button class="BtngoReviews" onclick="location.href='/camp/goreviews' ">리뷰 확인하러가기</button>
 		</div>
 	</section>
 </body>

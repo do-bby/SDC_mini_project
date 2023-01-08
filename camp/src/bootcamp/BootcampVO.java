@@ -11,8 +11,14 @@ public class BootcampVO {
 	private String realimg;	// 실제 학원이미지
 	private String site; // 사이트 링크
 	private int m_id; // 회원 id
+	private String address;
 	
-	
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 	public int getId() {
 		return id;
 	}

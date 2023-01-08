@@ -20,17 +20,18 @@ public class BootcampDAO {
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(
-					"select bnum,bprogram,bacademy,rogo,realimg,url,mnum from bootcamps");
+					"select bnum,bprogram,bacademy,rogo,realimg,url,mnum,adress from bootcamps");
 			BootcampVO vo = null;
 			while (rs.next()) {
 				vo = new BootcampVO();
-				vo.setId(rs.getInt("id"));
-				vo.setB_name(rs.getString("b_name"));
-				vo.setA_name(rs.getString("a_name"));
+				vo.setId(rs.getInt("bnum"));
+				vo.setB_name(rs.getString("bprogram"));
+				vo.setA_name(rs.getString("bacademy"));
 				vo.setRogo(rs.getString("rogo"));
 				vo.setRealimg(rs.getString("realimg"));
-				vo.setSite(rs.getString("site"));
-				vo.setM_id(rs.getInt("m_id"));
+				vo.setSite(rs.getString("url"));
+				vo.setM_id(rs.getInt("mnum"));
+				vo.setAddress(rs.getString("adress"));
 			
 				list.add(vo);
 			}
@@ -50,17 +51,18 @@ public class BootcampDAO {
 		try {
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery(
-					"select bnum,bprogram,bacademy,rogo,realimg,url,mnum from bootcamps where bnum = "+id);
+					"select bnum,bprogram,bacademy,rogo,realimg,url,mnum,adress from bootcamps where bnum = "+id);
 			while (rs.next()) {
 				vo = new BootcampVO();
-				vo.setId(rs.getInt("id"));
-				vo.setB_name(rs.getString("b_name"));
-				vo.setA_name(rs.getString("a_name"));
+				vo.setId(rs.getInt("bnum"));
+				vo.setB_name(rs.getString("bprogram"));
+				vo.setA_name(rs.getString("bacademy"));
 				vo.setRogo(rs.getString("rogo"));
 				vo.setRealimg(rs.getString("realimg"));
-				vo.setSite(rs.getString("site"));
-				vo.setM_id(rs.getInt("m_id"));
-			
+				vo.setSite(rs.getString("url"));
+				vo.setM_id(rs.getInt("mnum"));
+				vo.setAddress(rs.getString("adress"));
+				
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

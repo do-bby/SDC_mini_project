@@ -44,7 +44,7 @@
 		border-color:#B9B5B5;
 		border-width:3px;
 		border-style:solid;
-		margin:auto;
+		margin:75px auto;
 		width:830px; 
 		border-radius:10px;
 	}
@@ -124,7 +124,7 @@
 		border:3px solid #B9B5B5;
 		position:absolute;
 		z-index:2;
-		bottom:20px;
+		bottom:0px;
 		left:20px;
 		border-radius:10px;
 	}
@@ -135,10 +135,21 @@
 		border-radius:10px;
 	}
 	
+	#aname{
+		position:absolute;
+		z-index:2;
+		left:150px;
+		bottom:0px;
+		background-color:#AFB8BB;
+		border-radius:5px;
+		padding:5px;
+		margin:0px;
+		
+	}
 	#logoBox{
 	position:relative;
 	width: 100%;
-	height: 280px;	
+	height: 350px;	
 	top:20px;
 	}
 
@@ -157,19 +168,26 @@
 			<img id="dotbogi" src=".\images\돋보기.png" width=30px; height=30px;>
 			<input type="text" name="keyword" size="15">
 			<button class="login">로그인</button>
-			
 		</nav>
 	</header>
 	
 
 	<section id="section1">
+	<%
+	BootcampVO bvo = (BootcampVO)request.getAttribute("bvo");
+	
+	if(bvo != null){
+	%>
 		<article id="logoBox">
-			<img id="bootLogo" src=".\images\플레이데이터학원사진.png" width=830px; height=200px;>
-			<a href="https://playdata.io/"><img id="academyLogo" src=".\images\플레이데이터로고.png" width=100px; height=100px;></a>	
-		</article>
+			<img id="bootLogo" src=".\images\<%=bvo.getRealimg() %>" width=830px; height=300px;>
+			<a href=<%=bvo.getSite() %>><img id="academyLogo" src=".\images\<%=bvo.getRogo() %>" width=100px; height=100px;></a>
+			<h3 id="aname"><%= bvo.getA_name() %> - <%= bvo.getB_name()%></h3>
+		</article>		
+	<%
+	}
+	%>		
 	</section>
 
-	
 
 	<section id="section2">
 	<form method="post" action="/camp/review" >
@@ -217,7 +235,8 @@
 		
 			<article>
 			
-			<input type="hidden" name="action" value="insert"> 
+			<input type="hidden" name="action" value="insert">
+			<input type="hidden" name="bnum" value=<%=bvo.getId() %>> 
 			<p>좋았던 점</p>
 				<textarea  name= "goodmemo" rows=7 cols=100% ></textarea><br>
 			<p>아쉬웠던 점</p>
