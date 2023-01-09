@@ -1,5 +1,8 @@
 package member;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -51,7 +54,7 @@ public class MemberDAO {
 		 	Connection conn = ConnectDB.connect();
 	        PreparedStatement pstm = null;
 	        ResultSet rs = null;
-	        
+
 	        try {
 	            // 쿼리
 	            StringBuffer query = new StringBuffer();
@@ -104,5 +107,36 @@ public class MemberDAO {
 	        }
 	    }
 	
-
+	 public List<MemberVO> list(String mb){
+		 List<MemberVO> list = new ArrayList<>();
+		 Connection conn = ConnectDB.connect();
+		 PreparedStatement pstm = null;
+		 
+		 try {
+			 String query = "SELECT * FROM members";
+			 if(mb !=null && !mb.isEmpty()) {
+				 query += "WHERE ID = ?";
+				 pstm = conn.prepareStatement(query);
+			 }
+				 ResultSet rs = pstm.executeQuery();
+			 
+				 while(rs.next()) {
+					 MemberVO vo = new MemberVO();
+					 vo.setid(rs.getString("id"));
+					 vo.setpwd(rs.getString("pwd"));
+					 vo.setname(rs.getString("name"));
+					 vo.setemail(rs.getString("email"));
+					 vo.setpnum(rs.getInt("pnum"));
+					 vo.setnname(rs.getString("nname"));
+					 list.add(vo);
+				 }
+		 }catch(SQLException e) {
+			 e.printStackTrace();
+		 }finally {
+			 close(pstm,null,conn);
+		 }
+		 return list;
+	 }
+	
+	 
 }

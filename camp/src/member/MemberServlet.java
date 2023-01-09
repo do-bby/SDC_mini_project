@@ -44,30 +44,28 @@ public class MemberServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/json; charset=utf-8");
 		String input = request.getParameter("input");
+		String idv = request.getParameter("idval");
+		String nv = request.getParameter("nickval");
 		
 		if(input.equals("idform")) {
-	    MemberDAO dao = new MemberDAO();
-	    boolean resultid = dao.duplicateIdCheck(input);	    
-		if (resultid) {
-			request.setAttribute("confirmid", "이미 존재하는 아이디입니다");
+			MemberDAO dao = new MemberDAO();
+			boolean resultid = dao.duplicateIdCheck(idv);	    
+			if (resultid) {
+				request.setAttribute("confirmid", "이미 존재하는 아이디입니다");
+			}else {
+				request.setAttribute("confirmid", "사용가능한 아이디입니다");						
+			}
+			request.getRequestDispatcher("/IdCheckForm.jsp").forward(request, response);;
 		}else {
-			request.setAttribute("confirmid", "사용가능한 아이디입니다");						
-		  }
-		request.getRequestDispatcher("/IdCheckForm.jsp").forward(request, response);;
-		}else {
-		MemberDAO dao = new MemberDAO();
-		boolean resultn = dao.duplicateNicknameCheck(input);
-		if (resultn) {
-			request.setAttribute("confirmnick", "이미 존재하는 닉네임입니다");
-		}else {
-			request.setAttribute("confirmnick", "사용가능한 닉네임입니다");						
-		}
-		request.getRequestDispatcher("/NickCheckForm.jsp").forward(request, response);;
-	}
-
-	
-		
-	    
+			MemberDAO dao = new MemberDAO();
+			boolean resultn = dao.duplicateNicknameCheck(nv);
+			if (resultn) {
+				request.setAttribute("confirmnick", "이미 존재하는 닉네임입니다");
+			}else {
+				request.setAttribute("confirmnick", "사용가능한 닉네임입니다");						
+			}
+			request.getRequestDispatcher("/NickCheckForm.jsp").forward(request, response);;
+		}    
 	}
 }
 
