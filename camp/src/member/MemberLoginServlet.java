@@ -1,8 +1,6 @@
 package member;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,22 +44,19 @@ public class MemberLoginServlet extends HttpServlet {
 		vo.setpwd(pwd);
 		vo.setquestion(question);
 		vo.setanswer(answer);
-		System.out.println(id);
-		System.out.println(question);
-		System.out.println(answer);
 		
 		//action 값으로 기능 구분하도록 만듬
 		if(action.equals("login")) {
 			boolean result = dao.selectLogin(vo); //dao에서 true, false값으로 받아오게 만들었음.
-			
+			int mnum = dao.selectMnum(vo); //mnum만 따로 조회해서 가져옴
 			//로그인기능
 			if(result) {
 				session = request.getSession(); //세션정보 생성
 				session.setAttribute("isLogOn", true);	//세션에 isLogOn이라는 이름으로 true를 저장
-				session.setAttribute("login.id", id);	//id와 pw를 세션에 저장.
-				session.setAttribute("login.pwd", pwd);
+				session.setAttribute("login.id", id);	//id를 세션에 저장
+				session.setAttribute("login.pwd", pwd); //pwd를 세션에 저장
+				session.setAttribute("login.mnum", mnum); //mnum을 세션에 저장
 				response.sendRedirect("bootcamp"); //해당 링크(여기선 서블릿의 @WebServlet 값)로 요청함
-
 			} else {
 				request.setAttribute("msg", " 아이디 또는 비밀번호를 잘못 입력했습니다. <br> 입력하신 내용을 다시 확인해주세요.");//msg 부분에 이 값을 띄워줌
 				RequestDispatcher rd = request.getRequestDispatcher("/MemberLogin.jsp"); //로그인 실패시 이 페이지로 이동
@@ -69,11 +64,36 @@ public class MemberLoginServlet extends HttpServlet {
 			}
 			
 		}else if(action.equals("findpwd")) { //action 값이 findpwd 이면
-			String findPwd = dao.selectPwd(vo);
-			System.out.println(findPwd);
-			request.setAttribute("findPwd", findPwd);//찾은 비밀번호를 담아줌
-			RequestDispatcher rd = request.getRequestDispatcher("/MemberFindPwd.jsp");
-			rd.forward(request, response);
+			boolean result = dao.selectPwd(vo);
+			//아이디, 질문, 답변 체크
+			if(result) {
+				request.setAttribute("findId", id);//입력한 아이디를 담아줌
+				RequestDispatcher rd = request.getRequestDispatcher("/MemberFindPwd.jsp");
+				rd.forward(request, response);
+			}else {
+				System.out.println("정보 잘못됐다고 알려줘야됨");
+			}
+			
+		}else if(action.equals("updatePwd")){ //비밀번호 확인
+			String findId = request.getParameter("findId"); // 가져온 아이디
+			String newPwd = request.getParameter("newPwd"); // 새 비밀번호
+			String checkNewPwd = request.getParameter("checkNewPwd"); //새 비밀번호 확인
+
+			//새 비밀번호 입력시 번호 같나 체크 맞으면 비밀번호 변경
+			if(newPwd.equals(checkNewPwd)) {
+				//새 비밀번호 정보 등록
+				boolean result = dao.updatePwd(findId, newPwd);
+				if(result) {
+					System.out.println("비밀번호 수정 됐다고 보내줘야됨");
+					request.getRequestDispatcher("/MemberLogin.jsp").forward(request, response);
+				}else {
+					System.out.println("비밀번호 변경에 실패했다고 알려줘야됨");
+					request.getRequestDispatcher("/MemberFindPwd.jsp").forward(request, response);
+				}
+			}else{
+				System.out.println("비밀번호가 다릅니다 알려줘야됨");
+				request.getRequestDispatcher("/MemberFindPwd.jsp").forward(request, response);
+			}
 			
 		}else if(action.equals("logout")) { //로그아웃
 			session = request.getSession(); //세션 가져오기

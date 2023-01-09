@@ -11,6 +11,13 @@ public class MemberVO {
 	private String question;
 	private String answer;
 
+public void setmnum(int mnum) {
+	this.mnum = mnum;
+}
+	
+public int getmnum() {
+	return mnum;
+}
 
 public void setid(String id) {
 	this.id = id;

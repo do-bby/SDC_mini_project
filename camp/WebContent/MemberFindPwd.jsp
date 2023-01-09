@@ -15,10 +15,17 @@
 </style>
 <body>
 <%
-	String findPwd = (String)request.getAttribute("findPwd");
+	String findId = (String)request.getAttribute("findId");
 %>
 
-<a> 비밀번호는 <%= findPwd %> 입니다.</a>
+	<!-- 새 비밀번호 설정창 -->
+	<form method="post" action="login">
+		<input type="hidden" name="action" value="updatePwd">
+		<input type="hidden" name="findId" value=<%= findId %>><!-- 나중에 값 숨겨줘야됨 -->
+		<input type="password" placeholder="새 비밀번호를 입력하세요." name="newPwd" required><br>
+		<input type="password" placeholder="새 비밀번호 확인" name="checkNewPwd" required><br>
+		<input type="submit" class="button" value="전송">
+	</form>
 
 </body>
 </html>
