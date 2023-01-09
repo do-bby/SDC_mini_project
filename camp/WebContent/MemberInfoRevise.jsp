@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "java.util.ArrayList, member.MemberVO"%>
+ <%@ page import = "java.util.ArrayList, member.MemberVO"%>
 <%@ page import ="member.MemberDAO" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보 조회</title>
+<title>회원정보 수정</title>
 <style>
 
 	
@@ -75,7 +75,20 @@
 	font-weight: bold;
 	}
 	
-
+	input[type=text]{
+	height:100%;
+	width:100%;
+	border-radius: 10px;
+	border-color:  #DCD6D0;
+	border-width: .1px;
+	}
+	
+	input[type=text]:focus{
+	outline:none;
+	color: #111;
+    background: #ffff;
+    box-shadow: 0 0 5px #04BEBD;
+	}
 
 </style>
 <%
@@ -98,48 +111,51 @@
 	ArrayList<MemberVO> info = (ArrayList<MemberVO>)mdao.getMember(id); //test
 	if(info != null){
 %>
-	<!--<h2><%=id %>님의 회원정보 조회</h2> 메인페이지와 연결시 구현예정-->
-	<h2>회원정보 조회</h2>
-	<table class="userinfo">
+	<!--<h2><%=id %>님의 회원정보 수정</h2> 메인페이지와 연결시 구현예정-->
+	<h2>회원정보 수정</h2>
+	<form name="infoform" action="member" method="get">
+		<input type="hidden" name="input" value="infoRevise"> 
+		<table class="userinfo">
 <%
 		for(MemberVO vo : info){
 %>
 			<tr>
 			<td>아이디</td>
-			<td><%=vo.getid() %></td>
+			<td><input type="text" name="mid" value="<%=vo.getid() %>"></td>
 			</tr>
 			
 			<tr>
 			<td>비밀번호</td>
-			<td><%=vo.getpwd() %></td>
+			<td><input type="text" name="mpwd" value="<%=vo.getpwd() %>"></td>
 			</tr>
 			
 			<tr>
 			<td>이름</td>
-			<td><%=vo.getname() %></td>
+			<td><input type="text" name="mname" value="<%=vo.getname() %>"></td>
 			</tr>
 			
 			<tr>
 			<td>이메일</td>
-			<td><%=vo.getemail() %></td>
+			<td><input type="text" name="memail" value="<%=vo.getemail() %>"></td>
 			</tr>
 			
 			<tr>
 			<td>전화번호</td>
-			<td><%=vo.getpnum() %></td>
+			<td><input type="text" name="mpnum" value="<%=vo.getpnum() %>"></td>
 			</tr>
 			
 			<tr>
 			<td>닉네임</td>
-			<td><%=vo.getnname() %></td>
+			<td><input type="text" name="mnname" value="<%=vo.getnname() %>"></td>
 			</tr>
 <%
 		}
 	}
 %>
 	</table>
-	<button type="button" onclick="location.href='MemberInfoRevise.jsp'">회원정보 수정</button>
+	
+	<button type="button" onclick="location.href='MemberInfo.jsp'">수정완료</button>
+	<button type="button" onclick="location.href='MemberInfo.jsp'">뒤로가기</button>
 	</form>
-</div>
 </body>
 </html>

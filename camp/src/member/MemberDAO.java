@@ -107,21 +107,19 @@ public class MemberDAO {
 	        }
 	    }
 	
-	 public List<MemberVO> list(String mb){
+	 public List<MemberVO> getMember(String id){
 		 List<MemberVO> list = new ArrayList<>();
 		 Connection conn = ConnectDB.connect();
 		 PreparedStatement pstm = null;
+		 ResultSet rs = null;
 		 
 		 try {
-			 String query = "SELECT * FROM members";
-			 if(mb !=null && !mb.isEmpty()) {
-				 query += "WHERE ID = ?";
-				 pstm = conn.prepareStatement(query);
-			 }
-				 ResultSet rs = pstm.executeQuery();
-			 
+			 	pstm = conn.prepareStatement("SELECT * FROM members WHERE ID=?");
+			 	pstm.setString(1, id);
+				 rs = pstm.executeQuery(); 
+				 MemberVO vo = null;
 				 while(rs.next()) {
-					 MemberVO vo = new MemberVO();
+					 vo = new MemberVO();
 					 vo.setid(rs.getString("id"));
 					 vo.setpwd(rs.getString("pwd"));
 					 vo.setname(rs.getString("name"));
@@ -137,6 +135,27 @@ public class MemberDAO {
 		 }
 		 return list;
 	 }
-	
 	 
-}
+	 public int infoUpdate(String mid, String mpwd, String mname, String memail, int mpnum, String mnname) {
+		 Connection conn = ConnectDB.connect();
+		 int value = 0;
+			PreparedStatement pstmt = null;
+			try {
+				String sql = "UPDATE members SET id=?, pwd=?, name=?, email=?, pnum=?, nname=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1,mid);
+				pstmt.setString(2,mpwd);
+				pstmt.setString(3,mname);
+				pstmt.setString(4,memail);
+				pstmt.setInt(5,mpnum);
+				pstmt.setString(6,mnname);
+				pstmt.executeUpdate();
+			} catch(SQLException e) {
+				System.err.println("회원정보 수정 과정에서 오류 발생"+e);
+			}finally {
+				close(pstmt,null,conn);
+			}
+			return value;
+		}
+	 }
+
