@@ -11,12 +11,13 @@
 }
 
 </style>
+<body>
 <div id="login_main">
 	<h2>로그인</h2><hr>
 	<form method="post" action="login">
 		<input type="hidden" name="action" value="login">  
-		<input placeholder="아이디를 입력하세요" name="id"><br>
-		<input type="pwd" placeholder="패스워드를 입력하세요" name="pwd"><br>
+		<input type="text" placeholder="아이디를 입력하세요" name="id" required><br> <!-- required 넣으면 필수입력 -->
+		<input type="password" placeholder="패스워드를 입력하세요" name="pwd" required><br>
 		<aside>
 			<h4 style= color:red>${ msg }</h4>
 		</aside> 
