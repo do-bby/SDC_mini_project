@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,6 +7,7 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <meta charset="UTF-8">
+
 <title>로그인|회원가입</title>
 <script>
 $(function() {
@@ -109,7 +112,7 @@ $('.recovery .button').on('click', function(event) {
 				<div class="logo">
 					<!-- logo 대체 필요 -->
 					<a href="#"><img
-						src="http://res.cloudinary.com/dpcloudinary/image/upload/v1506186248/logo.png"
+						src="/images/부트모아로고3.png"
 						alt=""></a>
 				</div>
 				<!-- TOGGLE -->
@@ -265,7 +268,7 @@ $('.recovery .button').on('click', function(event) {
 								if (request.getAttribute("msg") != null) { 
 								%>
 								<script>
-									alert('${msg}');
+									alert('${ msg }');
 								</script> 
 								<% 
 								} 

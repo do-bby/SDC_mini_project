@@ -70,7 +70,7 @@ input[type=button]{
 	<div id = "chk">
 	<form action="member" method="get">
 		<input type="hidden" name="input" value="idform"> 
-		<input type="text" name = 'idval' id="userId" size ="40">
+		<input type="text" name = "idval" id="userId" size ="40">
 		<input type="submit" value="중복확인" >
 	<%
 	if (request.getAttribute("confirmid") != null) {

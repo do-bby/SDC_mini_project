@@ -17,7 +17,7 @@ public class MemberDAO {
 		Connection conn = ConnectDB.connect();
 		PreparedStatement pstmt = null;
 		try {
-			String sql = "INSERT INTO members VALUES(membersseq.NEXTVAL,?,?,?,?,?,?,?,?)";
+			String sql = "INSERT INTO members VALUES(membersseq.NEXTVAL,?,?,?,?,?,?,?,?,NULL)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,vo.getid());
 			pstmt.setString(2,vo.getpwd());
@@ -32,10 +32,11 @@ public class MemberDAO {
 		} catch(SQLException e) {
 			System.err.println("회원정보 insert과정에서 오류 발생"+e);
 			e.printStackTrace();
-			return false;
+			
 		}finally {
 			close(pstmt,null,conn);
 		}
+		return false;
 	}
 	
 	//close 함수
@@ -69,16 +70,15 @@ public class MemberDAO {
 	            
 	            if(rs.next()) {
 	            	return true; //해당 아이디 존재
-	            }else {
-	            	return false;
 	            }
 	                
 	            
-	        } catch (Exception sqle) {
-	            throw new RuntimeException(sqle.getMessage());
+	        } catch (Exception e) {
+	        	System.err.println("아이디 중복 확인 과정에서 오류 발생"+e);
 	        } finally {
 	        	close(pstm,null,conn);
 	        }
+	        return false;
 	    }
 	 
 	 public boolean duplicateNicknameCheck(String nickname)
@@ -97,17 +97,16 @@ public class MemberDAO {
 	            rs = pstm.executeQuery();
 	            
 	            if(rs.next()) {
-	            	return true; //해당 아이디 존재
-	            }else {
-	            	return false;
+	            	return true; //해당 닉네임 존재
 	            }
 	                
 	            
-	        } catch (Exception sqle) {
-	            throw new RuntimeException(sqle.getMessage());
+	        } catch (Exception e) {
+	        	System.err.println("닉네임 중복 확인 과정에서 오류 발생"+e);
 	        } finally {
 	        	close(pstm,null,conn);
 	        }
+	        return false;
 	    }
 	
 	 public List<MemberVO> getMember(String id){
@@ -123,6 +122,7 @@ public class MemberDAO {
 				 MemberVO vo = null;
 				 while(rs.next()) {
 					 vo = new MemberVO();
+					 vo.setmnum(rs.getInt("mnum"));
 					 vo.setid(rs.getString("id"));
 					 vo.setpwd(rs.getString("pwd"));
 					 vo.setname(rs.getString("name"));
@@ -141,12 +141,12 @@ public class MemberDAO {
 		 return list;
 	 }
 	 
-	 public int infoUpdate(String mid, String mpwd, String mname, String memail, String mpnum, String mnname, String mquestion, String manswer) {
+	 public int infoUpdate(String mid, String mpwd, String mname, String memail, String mpnum, String mnname, String mquestion, String manswer, String mnum) {
 		 Connection conn = ConnectDB.connect();
 		 int value = 0;
 			PreparedStatement pstmt = null;
 			try {
-				String sql = "UPDATE members SET id=?, pwd=?, name=?, email=?, pnum=?, nname=?, question=?, answer=?";
+				String sql = "UPDATE members SET id=?, pwd=?, name=?, email=?, pnum=?, nname=?, question=?, answer=? WHERE mnum=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1,mid);
 				pstmt.setString(2,mpwd);
@@ -156,6 +156,7 @@ public class MemberDAO {
 				pstmt.setString(6,mnname);
 				pstmt.setString(7,mquestion);
 				pstmt.setString(8,manswer);
+				pstmt.setString(9,mnum);
 				pstmt.executeUpdate();
 			} catch(SQLException e) {
 				System.err.println("회원정보 수정 과정에서 오류 발생"+e);

@@ -133,11 +133,22 @@
 			<td>닉네임</td>
 			<td><%=vo.getnname() %></td>
 			</tr>
+			
+			<tr>
+			<td>보안 질문</td>
+			<td><%=vo.getquestion() %></td>
+			</tr>
+			
+			<tr>
+			<td>답변</td>
+			<td><%=vo.getanswer() %></td>
+			</tr>
 <%
 		}
 	}
 %>
 	</table>
+	<button type="button" onclick="location.href='BootCampMain.jsp'">메인페이지로 돌아가기</button>
 	<button type="button" onclick="location.href='MemberInfoRevise.jsp'">회원정보 수정</button>
 	</form>
 </div>

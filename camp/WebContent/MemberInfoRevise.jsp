@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>회원정보 수정</title>
 <style>
@@ -45,7 +46,7 @@
 	display:block;
 	}
 	
-	button{
+	.infobutton{
 	float: right;
 	border:0;
 	font-size:14px;
@@ -75,7 +76,7 @@
 	font-weight: bold;
 	}
 	
-	input[type=text]{
+	.q, input[type=text]{
 	height:100%;
 	width:100%;
 	border-radius: 10px;
@@ -83,7 +84,7 @@
 	border-width: .1px;
 	}
 	
-	input[type=text]:focus{
+	.q:focus, input[type=text]:focus{
 	outline:none;
 	color: #111;
     background: #ffff;
@@ -113,12 +114,14 @@
 %>
 	<!--<h2><%=id %>님의 회원정보 수정</h2> 메인페이지와 연결시 구현예정-->
 	<h2>회원정보 수정</h2>
-	<form name="infoform" action="member" method="get">
+	<form name="infoform" action="member" method="post">
 		<input type="hidden" name="input" value="infoRevise"> 
 		<table class="userinfo">
+		
 <%
 		for(MemberVO vo : info){
 %>
+			
 			<tr>
 			<td>아이디</td>
 			<td><input type="text" name="mid" value="<%=vo.getid() %>"></td>
@@ -148,14 +151,47 @@
 			<td>닉네임</td>
 			<td><input type="text" name="mnname" value="<%=vo.getnname() %>"></td>
 			</tr>
+			
+			<tr>
+			<td>보안 질문</td>
+			<td>
+			<select name="mquestion" class="q">
+								<option value="<%=vo.getquestion() %>">"<%=vo.getquestion() %>"</option> <!-- none값 되는 에러중 -->
+								<option value="1">어머니의 성함은?</option>
+								<option value="2">아버지의 성함은?</option>
+								<option value="3">나의 보물1호는?</option>
+								<option value="4">기억에 남는 추억의 장소는?</option>
+								<option value="5">기억에 남는 추억의 선물은?</option>
+								<option value="6">인상 깊게 읽은 책 이름은?</option>
+								<option value="7">다시 태어나면 되고 싶은 것은?</option>
+								<option value="8">내가 좋아하는 책 이름은?</option>
+								</select>
+								</td>	
+			</tr>
+			<tr><td>
+			<input type="hidden" name="mnum" value="<%=vo.getmnum() %>">
+			</td></tr>
+			<tr>
+			<td>답변</td>
+			<td><input type="text" name="manswer" value=<%=vo.getanswer() %>></td>
+			</tr>
 <%
 		}
 	}
 %>
 	</table>
 	
-	<button type="button" onclick="location.href='MemberInfo.jsp'">수정완료</button>
-	<button type="button" onclick="location.href='MemberInfo.jsp'">뒤로가기</button>
-	</form>
+	<input type="submit" class="infobutton" value="수정 완료">
+	<button type="button" class="infobutton" onclick="location.href='MemberInfo.jsp'">뒤로가기</button>
+	</form> <!-- MemberServlet에서 msg받아서 띄울 예정(Servlet에 메시지는 있지만 안되는 중) -->
+	<%	
+								if (request.getAttribute("msg") != null) { 
+								%>
+								<script>
+									alert('${ msg }');
+								</script> 
+								<% 
+								} 
+								%>
 </body>
 </html>
