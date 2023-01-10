@@ -171,7 +171,7 @@ function opennickCheck(){
 			<td>보안 질문</td>
 			<td>
 			<select name="mquestion" class="q">
-								<option value="<%=vo.getquestion() %>">"<%=vo.getquestion() %>"</option> <!-- none값 되는 에러중 -->
+								<option value="<%=vo.getquestion() %>">"<%=vo.getquestion() %>"</option>
 								<option value="1">어머니의 성함은?</option>
 								<option value="2">아버지의 성함은?</option>
 								<option value="3">나의 보물1호는?</option>
