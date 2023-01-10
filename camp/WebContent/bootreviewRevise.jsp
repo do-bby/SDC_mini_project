@@ -69,7 +69,7 @@ function stars(num){
 %>
 	<div id="reviewBox"> 
 		<div id="reviewBox1">
-		<div id="nameDate"><%= mDao.getMember(rvo.getM_id()).getnname() %>|<%= rdao.updateDate()%> </div><!-- 수정날짜로 바꾸는 메서드 -->
+		<div id="nameDate"><%= mDao.getMember(rvo.getM_id()).getnname() %>|<%= rvo.getWriteDate()%> </div><!-- 수정날짜로 바꾸는 메서드 -->
 		<div class="reviews">강사진 만족도<br><br>
 				<select name = "teachScore">
 				<option value="<%=rvo.getT_score()%>">stars(<%=rvo.getT_score()%>)</option>
@@ -128,7 +128,7 @@ function stars(num){
 		<% } %>
 		
 	<input type="submit"  value="수정 완료">
-	<button type="button" onclick="location.href='MemberInfo.jsp'">뒤로가기</button>
+	<input type="button" value="뒤로가기" onclick="history.back(-1);">
 	</form>
 <%	
 		if (request.getAttribute("msg") != null) { 

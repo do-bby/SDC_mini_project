@@ -240,7 +240,7 @@
 
 <body>
 <!-- 임의로 버튼 위치를 넣어 놓은 상태 -->
- <button type="button" onclick="location.href='bootreviewRevise.jsp'">회원정보 수정</button>
+ <button type="button" onclick="location.href='bootreviewRevise.jsp'">리뷰 수정</button>
 <div id="wrap">
 	<header>
 		<a href ='/camp/goReviews'><img id="websiteLogo" src=".\images\부트모아로고3.png" ></a>
