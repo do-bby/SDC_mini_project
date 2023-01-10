@@ -61,11 +61,12 @@ function stars(num){
 	<h2>작성하신 글을 수정해주세요</h2>
 	<form name="update" method="post" action="updateReview">
 	<% 	
-		MemberDAO mDao = new MemberDAO();
-		ReviewDAO rdao = new ReviewDAO();
-		MemberVO mvo = (MemberVO)session.getAttribute("loginVO");
-		ReviewVO rvo = (ReviewVO) rdao.listOne(mvo.getmnum()); //현재 로그인한 회원의 리뷰를 가져옴
-		if(rvo != null){
+	MemberDAO mDao = new MemberDAO();
+	ReviewDAO rdao = new ReviewDAO();
+	MemberVO mvo = (MemberVO)session.getAttribute("loginVO");
+	ReviewVO rvo = (ReviewVO) rdao.listOne(mvo.getmnum()); //현재 로그인한 회원의 리뷰를 가져옴
+	if(rvo != null){
+
 %>
 	<div id="reviewBox"> 
 		<div id="reviewBox1">
@@ -123,7 +124,7 @@ function stars(num){
 		}else{%>
 		<script>
 		alert("작성하신 리뷰가 없습니다");
-		response.sendRedirect("bootReviews.jsp"); //작성한 리뷰가 없을 시 다시 리뷰 조회로 가기
+		
 		</script>
 		<% } %>
 		
