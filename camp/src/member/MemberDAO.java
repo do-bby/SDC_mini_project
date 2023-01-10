@@ -170,6 +170,35 @@ public class MemberDAO {
 		 return vo;
 	 }
 	 
+	 public MemberVO getMember(int mnum){
+		 Connection conn = ConnectDB.connect();
+		 PreparedStatement pstm = null;
+		 ResultSet rs = null;
+		 MemberVO vo = null;
+		 try {
+			 	pstm = conn.prepareStatement("SELECT * FROM members WHERE mnum=?");
+			 	pstm.setInt(1, mnum);
+				rs = pstm.executeQuery(); 
+				 
+				 while(rs.next()) {
+					 vo = new MemberVO();
+					 vo.setmnum(rs.getInt("mnum"));
+					 vo.setid(rs.getString("id"));
+					 vo.setpwd(rs.getString("pwd"));
+					 vo.setname(rs.getString("name"));
+					 vo.setemail(rs.getString("email"));
+					 vo.setpnum(rs.getString("pnum"));
+					 vo.setnname(rs.getString("nname"));
+				 }
+				 
+		 }catch(SQLException e) {
+			 e.printStackTrace();
+		 }finally {
+			 close(pstm,null,conn);
+		 }
+		 return vo;
+	 }
+	 
 	 public int infoUpdate(String mid, String mpwd, String mname, String memail, String mpnum, String mnname, String mquestion, String manswer, String mnum) {
 		 Connection conn = ConnectDB.connect();
 		 int value = 0;

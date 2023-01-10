@@ -26,10 +26,18 @@ public class goReviewsServlet extends HttpServlet {
 		// BootMainYebin.jsp에서 bnum 이라는 이름으로 부트캠프 번호가 넘어옴 -> bnum에 맞는 부트캠프를 검색해서 그 객체의 변수들을 반환 
 		
 		if(bnum != null) {
+			//요청에서 받아들인 bnum을 정수로 변환 
 			int bNum = Integer.parseInt(bnum);
+			
+			// 요청받은 부트캠프 번호(bnum)에 해당하는 부트캠포 정보를 반환해서 넘겨줌
 			request.setAttribute("bvo", bDao.listOne(bNum));
+			
+			// 요청받은 부트캠프 번호(bnum)에 해당하는 부트캠프에 대한 리뷰 리스트들을 넘겨줌
 			request.setAttribute("reviewList", rDao.TheBootcampList(bNum) );
-			RequestDispatcher rd = request.getRequestDispatcher("BootReviews.jsp");
+			
+			// 요청받은 부트캠프 번호(bnum)을 다시 넘겨줌 
+			request.setAttribute("bnum", bNum);
+			RequestDispatcher rd = request.getRequestDispatcher("bootReviews.jsp");
 			rd.forward(request, response);
 		}else {
 			request.setAttribute("list", bDao.listAll());

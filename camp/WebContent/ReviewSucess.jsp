@@ -73,11 +73,12 @@
 
 </head>
 <body>
+	<% int bnum = (int)request.getAttribute("bnum"); %>
 	<section>
 		<div>
 			<h3>${ msg }</h3>
 			<hr>
-			<button class="BtngoReviews" onclick="location.href='/camp/goReviews?bnum=' ">리뷰 확인하러가기</button>
+			<button class="BtngoReviews" onclick="location.href='/camp/goReviews?bnum=<%=bnum%>'">리뷰 확인하러가기</button>
 		</div>
 	</section>
 </body>

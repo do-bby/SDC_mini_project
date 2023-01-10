@@ -26,8 +26,10 @@ public class ReviewServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int bnum = Integer.parseInt(request.getParameter("bnum"));
+		
 		BootcampDAO dao = new BootcampDAO();
 		// bnum 이라는 이름으로 부트캠프 번호가 넘어옴 -> bnum에 맞는 부트캠프를 검색해서 그 객체의 변수들을 반환 
+		System.out.println(bnum);
 		request.setAttribute("bvo", dao.listOne(bnum));
 		RequestDispatcher rd = request.getRequestDispatcher("BootReviewApp.jsp");
 		rd.forward(request, response);
@@ -41,7 +43,7 @@ public class ReviewServlet extends HttpServlet {
 		HttpSession session = request.getSession();//세션 객체 생성
 		MemberDAO mDao = new MemberDAO();
 
-		
+		//bootReviewApp.jsp에서 post 방식으로 넘어온 값들을 get하여 저장
 		request.setCharacterEncoding("utf-8");
 		String action = request.getParameter("action");
 		String goodMemo = request.getParameter("goodmemo");// 장점
@@ -106,6 +108,7 @@ public class ReviewServlet extends HttpServlet {
 				request.setAttribute("list", list);
 		}
 		
+		request.setAttribute("bnum", bNum);
 		RequestDispatcher rd = request.getRequestDispatcher("ReviewSucess.jsp");
 		rd.forward(request, response);
 

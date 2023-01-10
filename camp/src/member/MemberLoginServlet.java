@@ -98,6 +98,9 @@ public class MemberLoginServlet extends HttpServlet {
 		}else if(action.equals("logout")) { //로그아웃
 			session = request.getSession(); //세션 가져오기
 			session.invalidate(); //세션 파기하기
+			response.sendRedirect("bootcamp");
+
+			
 		}
 	}
 	

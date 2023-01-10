@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import db.ConnectDB;
+import member.MemberVO;
 
 public class ReviewDAO {
 		//전체 리뷰 불러오기
@@ -188,5 +189,30 @@ public class ReviewDAO {
 			}
 		}
 		
+		// 각 부트캠프에 대한 (bnum) sum값이 
+		public List<ReviewScoreVO>sumScoreList(){
+			Connection conn = ConnectDB.connect();
+			Statement stmt = null;
+			ResultSet rs = null;
+			ReviewScoreVO vo = null;
+			List<ReviewScoreVO> list = new ArrayList<>();
+			try {
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select sum(bscope)/count(bnum),sum(instsat)/count(bnum),sum(edusat)/count(bnum),sum(learnsat)/count(bnum) from reviews group by bnum");
+				while (rs.next()) {
+					vo = new ReviewScoreVO();
+					vo.setScore(rs.getInt("sum(bscope)/count(bnum)"));
+					vo.setT_score(rs.getInt("sum(instsat)/count(bnum)"));
+					vo.setS_score(rs.getInt("sum(edusat)/count(bnum)"));
+					vo.setE_score(rs.getInt("sum(learnsat)/count(bnum)"));
+					list.add(vo);
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				ConnectDB.close(conn);
+			}
+			return list;
+		}
 		
 }

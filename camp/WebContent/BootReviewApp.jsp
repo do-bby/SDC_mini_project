@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="review.ReviewVO,bootcamp.BootcampVO,java.util.ArrayList"%>
+<%@ page import="review.ReviewVO,member.MemberVO,bootcamp.BootcampVO,java.util.ArrayList"%>
 
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@
 	nav{
 		margin-right:0px;
 		position:relative;
-		left:600px;
+		left:550px;
 	}
 	
 	#section1 {
@@ -67,7 +67,7 @@
 		display:inline-block;
 	}
 	
-	.login{
+	.topBtn{
 		box-shadow:inset 0px -3px 7px -36px #29bbff;
 		background:linear-gradient(to bottom, #95cff0 5%, #058fff 100%);
 		background-color:#95cff0;
@@ -82,11 +82,11 @@
 	
 	}
 	
-	.login:hover {
+	.topBtn:hover {
 		background:linear-gradient(to bottom, #058fff 5%, #95cff0 100%);
 		background-color:#058fff;
 	}
-	.login:active {
+	.topBtn:active {
 		position:relative;
 		top:1px;
 	}
@@ -157,6 +157,11 @@
 		width:100%;
 		margin:0,auto;
 	}
+	#websiteLogo{
+		position:relative;
+		width:450px;
+		top:45px;
+	}
 
 </style>
 </head>
@@ -164,10 +169,32 @@
 <body>
 <div id="wrap">
 	<header>
+		<a href ='/camp/goReviews'><img id="websiteLogo" src=".\images\부트모아로고3.png" ></a>
+		
 		<nav> 
-			<img id="dotbogi" src=".\images\돋보기.png" width=30px; height=30px;>
-			<input type="text" name="keyword" size="15">
-			<button class="login">로그인</button>
+		
+			<%	
+				MemberVO mvo = (MemberVO)session.getAttribute("loginVO");
+				if(session.getAttribute("isLogOn") != null ){
+					
+			%>
+					<span><%= mvo.getnname() %>님 환영합니다 </span>
+					<form style="display:inline-block;" method="post" action="login">
+						<input type="hidden" name="action" value="logout">
+						<button type="submit" class="topBtn" value="전송">로그아웃</button>
+					</form>
+			<%
+				}else{
+			%>
+					<form method="post" action="login">
+						<input type="hidden" name="action" value="login">
+						<button type="submit" class="topBtn" value="전송">로그인</button>
+					</form>
+					
+			<%
+				}
+			%>
+			
 		</nav>
 	</header>
 	
