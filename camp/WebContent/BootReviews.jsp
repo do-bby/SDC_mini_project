@@ -227,26 +227,30 @@
 	<header>
 		<a href ='/camp/goReviews'><img id="websiteLogo" src=".\images\부트모아로고3.png" ></a>
 		<nav> 
+		
+			<%	
 			
-			
-			<%
 				boolean loginCheck = (boolean)session.getAttribute("isLogOn");
 				MemberVO2 mvo = (MemberVO2)session.getAttribute("loginVO");
-				if(loginCheck){
+				if(loginCheck ){
 			%>
 					<span><%= mvo.getnname() %>님 환영합니다</span>
-					<button class="topBtn">로그아웃</button>
+					<form method="post" action="login">
+						<input type="hidden" name="action" value="logout">
+						<button type="submit" class="topBtn" value="전송">로그아웃</button>
+					</form>
 			<%
 				}else{
 			%>
 					<form method="post" action="login">
 						<input type="hidden" name="action" value="logout">
-						<button class="topBtn">로그아웃</button>
+						<button type="submit" class="topBtn" value="전송">로그인</button>
 					</form>
 					
 			<%
 				}
 			%>
+			
 		</nav>
 	</header>
 	

@@ -52,9 +52,9 @@
 <body>
 <h1>부트캠프 후기모음 사이트 메인페이지</h1>
 <%
-	boolean loginCheck = (boolean)session.getAttribute("isLogOn");
+	//boolean loginCheck = (boolean)session.getAttribute("isLogOn");
 	MemberVO2 mvo = (MemberVO2)session.getAttribute("loginVO");
-	if(loginCheck){
+	if(session.getAttribute("isLogOn") != null){ //로그인 해서 세션이 생성되면 환영 문구 띄움
 %>
 		<h1><%=mvo.getnname()%>님 환영합니다 ㅎㅎ</h1>
 <%
