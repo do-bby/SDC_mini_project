@@ -11,9 +11,17 @@ public class ReviewVO {
 	private int e_score; // 학습환경 만족도
 	private int b_id; // 부트캠프정보 fk
 	private int m_id; // 회원정보 fk
+	private String writeDate; // 작성 날짜
 	
 	
 	
+	
+	public String getWriteDate() {
+		return writeDate;
+	}
+	public void setWriteDate(String writeDate) {
+		this.writeDate = writeDate;
+	}
 	public int getId() {
 		return id;
 	}

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="review.ReviewVO,bootcamp.BootcampVO,java.util.ArrayList"%>
+<%@ page import="review.ReviewVO,member.MemberVO2,bootcamp.BootcampVO,member.MemberDAO2,java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +31,7 @@
 	nav{
 		margin-right:0px;
 		position:relative;
-		left:600px;
+		left:580px;
 	}
 	
 	#section1 {
@@ -56,7 +56,7 @@
 		margin : 20px;
 	}
 
-	.login{
+	.topBtn{
 		box-shadow:inset 0px -3px 7px -36px #29bbff;
 		background:linear-gradient(to bottom, #95cff0 5%, #058fff 100%);
 		background-color:#95cff0;
@@ -80,20 +80,7 @@
 		top:1px;
 	}
 	
-	.BtnReview {
-		box-shadow:inset 0px -3px 7px -36px #29bbff;
-		background:linear-gradient(to bottom, #95cff0 5%, #058fff 100%);
-		background-color:#95cff0;
-		border-radius:3px;
-		border:1px solid #0b0e07;
-		display:inline-block;
-		cursor:pointer;
-		color:#ffffff;
-		padding:10px 30px;
-		text-decoration:none;
-		text-shadow:0px 0px 0px #365dd1;
-		margin-left:298px;
-	}
+
 	.BtnInsertReview:hover {
 		background:linear-gradient(to bottom, #058fff 5%, #95cff0 100%);
 		background-color:#058fff;
@@ -123,7 +110,7 @@
 		z-index:2;
 		left:150px;
 		bottom:0px;
-		background-color:#AFB8BB;
+		background-color:#BCD8FB;
 		border-radius:5px;
 		padding:5px;
 		margin:0px;
@@ -179,12 +166,57 @@
 		
 	}
 	
+	#reviewBox1{
+		float:left;
+		position:relative;
+		top:20px;
+		left:30px;
+		width:300px;
+		height:250px;
+	}
+	
 	#reviewBox2{
 	 	width:400px;
 	 	position:relative;
-	 	left:300px;
+	 	left:20px;
 	 	top:5px;
+	 	float:left;
 	}
+	
+	#websiteLogo{
+		position:relative;
+		width:450px;
+		top:45px;
+	}
+	
+	.BtnReview {
+		box-shadow:inset 0px -3px 7px -36px #29bbff;
+		background:linear-gradient(to bottom, #95cff0 5%, #058fff 100%);
+		background-color:#95cff0;
+		border-radius:3px;
+		border:1px solid #0b0e07;
+		display:inline-block;
+		cursor:pointer;
+		color:#ffffff;
+		padding:10px 30px;
+		text-decoration:none;
+		text-shadow:0px 0px 0px #365dd1;
+		margin-left:298px;
+	}
+	
+	#nameDate{
+		position:relative;
+		display:inline-block;
+		bottom:30px;
+		left:20px;
+	}
+	
+	.score{
+		position:relative;
+		margin:20px;
+	
+	}
+	
 </style>
 
 
@@ -193,10 +225,24 @@
 <body>
 <div id="wrap">
 	<header>
+		<a href ='/camp/goReviews'><img id="websiteLogo" src=".\images\부트모아로고3.png" ></a>
 		<nav> 
-			<img id="dotbogi" src=".\images\돋보기.png" width=30px; height=30px;>
-			<input type="text" name="keyword" size="15" style="margin:10px;">
-			<button class="login">로그인</button>
+			
+			
+			<%
+				boolean loginCheck = (boolean)session.getAttribute("isLogOn");
+				MemberVO2 mvo = (MemberVO2)session.getAttribute("loginVO");
+				if(loginCheck){
+			%>
+					<span><%= mvo.getnname() %>님 환영합니다</span>
+					<button class="topBtn">로그아웃</button>
+			<%
+				}else{
+			%>
+					<button class="topBtn">로그인</button>
+			<%
+				}
+			%>
 		</nav>
 	</header>
 	
@@ -233,8 +279,28 @@
 		</article>
 	</section>
 	<section id="section3"">
+	
+	<script type="text/javascript">
+		function stars(num){
+			if(num == 5){
+				document.write("⭐⭐⭐⭐⭐");
+			}else if( num == 4){
+				document.write("⭐⭐⭐⭐");
+			}else if( num == 3){
+				document.write("⭐⭐⭐");
+			}else if( num == 2){
+				document.write("⭐⭐");
+			}else{
+				document.write("⭐");
+			}
+			
+		}
+	
+	</script>
 	<%
+	
 	ArrayList<ReviewVO> list = (ArrayList<ReviewVO>)request.getAttribute("reviewList");
+	MemberDAO2 mDao= new MemberDAO2();
 	if (list != null){
 		
 	%>
@@ -242,7 +308,15 @@
 		for(ReviewVO rvo : list){
 %>
 			<article>
+				
 				<div id="reviewBox"> 
+					<div id="reviewBox1">
+					<img src=".\images\기본프로필사진.png" style="border-radius:70%;" width="70px;" height="70px;">
+					<div id="nameDate"><%= mDao.getMember(rvo.getM_id()).getnname() %>|<%= rvo.getWriteDate()%> </div>
+					<div class = score>강사진 만족도 <script>stars(<%=rvo.getT_score()%>)</script></div>
+					<div class = score>학습환경 만족도<script>stars(<%=rvo.getE_score() %>)</script></div>
+					<div class = score>교육지원 수준<script>stars(<%=rvo.getS_score() %>)</script></div>
+					</div>
 					<div id="reviewBox2">
 					<span style="color:red;">장점</span>
 					<div class="reviewBox"><%=rvo.getGood() %></div>
@@ -289,6 +363,8 @@
 			// 마커 생성
 			new google.maps.Marker({position: latlng, map:map})
 		};
+		
+		
 							
 </script>
 	

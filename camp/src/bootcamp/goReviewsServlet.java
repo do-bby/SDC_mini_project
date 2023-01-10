@@ -20,17 +20,22 @@ public class goReviewsServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int bnum = Integer.parseInt(request.getParameter("bnum"));
+		String bnum = request.getParameter("bnum");
 		BootcampDAO bDao = new BootcampDAO();
 		ReviewDAO rDao = new ReviewDAO();
 		// BootMainYebin.jsp에서 bnum 이라는 이름으로 부트캠프 번호가 넘어옴 -> bnum에 맞는 부트캠프를 검색해서 그 객체의 변수들을 반환 
 		
-		
-		if(bnum != 0) {
-			request.setAttribute("bvo", bDao.listOne(bnum));
-			request.setAttribute("reviewList", rDao.TheBootcampList(bnum) );
+		if(bnum != null) {
+			int bNum = Integer.parseInt(bnum);
+			request.setAttribute("bvo", bDao.listOne(bNum));
+			request.setAttribute("reviewList", rDao.TheBootcampList(bNum) );
 			RequestDispatcher rd = request.getRequestDispatcher("BootReviews.jsp");
 			rd.forward(request, response);
+		}else {
+			request.setAttribute("list", bDao.listAll());
+			RequestDispatcher rd = request.getRequestDispatcher("BootMainYebin.jsp");
+			rd.forward(request, response);
+			
 		}
 		
 	}

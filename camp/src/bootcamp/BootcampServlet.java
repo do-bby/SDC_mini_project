@@ -9,44 +9,47 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
+
+import member.MemberDAO;
+import member.MemberDAO2;
+
 
 @WebServlet("/bootcamp")
 public class BootcampServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     public BootcampServlet() {super();}
-
+    private BootcampDAO bDao;
+    private MemberDAO2 mDao;
+    
+    public void init() {
+    	bDao = new BootcampDAO();
+    	mDao = new MemberDAO2();
+	}
+    
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//DAO 객체 생성
 		
-		String keyword = request.getParameter("keyword");
-		String id = request.getParameter("id");
-		String action = request.getParameter("action");
-		BootcampDAO dao = new BootcampDAO();
-		request.setAttribute("list", dao.listAll());
+		//Main 화면에선 항상 list라는 이름으로 모든 부트캠프 리스트를 반환
+		request.setAttribute("list", bDao.listAll());
+		
+		HttpSession session = request.getSession();
+		
+		// session에 저장된 로그인 정보 받아오기 
+		boolean loginCheck = (boolean)session.getAttribute("isLogOn");
+		String login_id = (String)session.getAttribute("login.id");
 		
 		
-		if(keyword == null) {
-			if(action != null && action.equals("delete")) {
-				boolean result = dao.delete(Integer.parseInt(id));
-				if (result) {
-					request.setAttribute("msg", "의 대한 정보가 성공적으로 삭제되었습니다.");
-				} else {
-					request.setAttribute("msg", "의 대한 정보가 삭제되지 않았습니다.");
-				}				
-			}
-		}
-		
-		else {
-			List<BootcampVO> list = dao.search(keyword);
-			if (list != null && list.size() == 0) {
-				request.setAttribute("msg", keyword + "의 대한 정보가 없습니다.");
-			} else {
-				request.setAttribute("list", dao.search(keyword));
-			}
+		// login 되어있으면 로그인 한 회원의 정보가 담긴 세션 객체를 반환,  Main 화면으로 forward 해준다. 
+		if(loginCheck) {
+			session.setAttribute("loginVO", mDao.getMember(login_id));
+	
 		}
 		RequestDispatcher rd = request.getRequestDispatcher("BootMainYebin.jsp");
 		rd.forward(request, response);
-		
+
 	}
 /*
  *  private String b_name;	// 부트캠프 이름
@@ -61,38 +64,12 @@ public class BootcampServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String action = request.getParameter("action");
-		String b_name = request.getParameter("b_name");
-		String a_name = request.getParameter("a_name");
-		String rogo = request.getParameter("rogo");
-		String realimg = request.getParameter("realimg");
-		String site = request.getParameter("site");
-		String m_id = request.getParameter("m_id");
-		BootcampDAO dao = new BootcampDAO();
-		BootcampVO vo = new BootcampVO();
-		vo.setB_name(b_name);
-		vo.setA_name(a_name);
-		vo.setRogo(rogo);
-		vo.setRealimg(realimg);
-		vo.setSite(site);
-		vo.setM_id(Integer.parseInt(m_id));
-		if(action == "insert") {
-			boolean result = dao.insert(vo);
-			if (result) {			
-				request.setAttribute("msg", "성공적으로 등록되었습니다.");			
-			} else {
-				request.setAttribute("msg", "등록되지 않았습니다.");
-			}
-		} else {
-			boolean result = dao.update(vo);
-			if (result) {			
-				request.setAttribute("msg", "성공적으로 수정되었습니다.");			
-			} else {
-				request.setAttribute("msg", "수정되지 않았습니다.");
-			}
-		}
-		request.setAttribute("list", dao.listAll());
-		request.getRequestDispatcher("/bootcamp/bootcamps.jsp").forward(request, response);
+		
+		
+	
+		
+		
+		 
 	}
-
+		
 }

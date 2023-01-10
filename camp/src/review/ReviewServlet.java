@@ -2,6 +2,8 @@ package review;
 
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,11 +12,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 
 import bootcamp.BootcampDAO;
 import bootcamp.BootcampVO;
-
+import member.MemberDAO2;
 
 @WebServlet("/review")
 public class ReviewServlet extends HttpServlet {
@@ -26,15 +28,19 @@ public class ReviewServlet extends HttpServlet {
 		int bnum = Integer.parseInt(request.getParameter("bnum"));
 		BootcampDAO dao = new BootcampDAO();
 		// bnum 이라는 이름으로 부트캠프 번호가 넘어옴 -> bnum에 맞는 부트캠프를 검색해서 그 객체의 변수들을 반환 
-		
 		request.setAttribute("bvo", dao.listOne(bnum));
 		RequestDispatcher rd = request.getRequestDispatcher("BootReviewApp.jsp");
 		rd.forward(request, response);
 		
 		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		HttpSession session = request.getSession();//세션 객체 생성
+		MemberDAO2 mDao = new MemberDAO2();
+
 		
 		request.setCharacterEncoding("utf-8");
 		String action = request.getParameter("action");
@@ -45,8 +51,14 @@ public class ReviewServlet extends HttpServlet {
 		int tScore = Integer.parseInt(request.getParameter("teachScore")); // 강사진만족도
 		int eScore = Integer.parseInt(request.getParameter("learnScore")); // 학습환경 만족도
 		int sScore = Integer.parseInt(request.getParameter("eduScore")); // 교육지원 수준
+		int mNum = mDao.getMember((String)session.getAttribute("login.id")).getMnum();
+
+		String pattern = "yyyy.MM.dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		String writeDate = simpleDateFormat.format(new Date());
 		
-		 
+		
+ 
 		ReviewDAO dao = new ReviewDAO();
 		// 후기작성
 		if(action.equals("insert")) {
@@ -58,7 +70,10 @@ public class ReviewServlet extends HttpServlet {
 			vo.setE_score(eScore);
 			vo.setS_score(sScore);
 			vo.setB_id(bNum);
-			vo.setM_id(1);
+			vo.setM_id(mNum);
+			vo.setWriteDate(writeDate);
+			
+
 			
 			boolean result = dao.insert(vo);
 			if (result)

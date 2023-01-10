@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ page import="review.ReviewVO,bootcamp.BootcampVO,java.util.ArrayList"%>
+ <%@ page import="review.ReviewVO,member.MemberVO2,bootcamp.BootcampVO,java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,7 +16,7 @@
     
 }
 	
-	* {
+	* { 
 	font-family:'SUIT-Regular';
 	
 	}
@@ -51,6 +51,16 @@
 </head>
 <body>
 <h1>부트캠프 후기모음 사이트 메인페이지</h1>
+<%
+	boolean loginCheck = (boolean)session.getAttribute("isLogOn");
+	MemberVO2 mvo = (MemberVO2)session.getAttribute("loginVO");
+	if(loginCheck){
+%>
+		<h1><%=mvo.getnname()%>님 환영합니다 ㅎㅎ</h1>
+<%
+	}
+
+%>
 
 <%
 	ArrayList<BootcampVO> list = (ArrayList<BootcampVO>)request.getAttribute("list");
@@ -58,10 +68,10 @@
 %>
 	<section>
 		<article>
-		<% for(BootcampVO vo : list){%>
-			<div location.href='/camp/bootcamp' class="bootData" onclick="location.href='/camp/goReviews?bnum=<%=vo.getId()%>'">
-			 	<img src =".\images\<%=vo.getRogo() %>" id=<%=vo.getB_name()%> >
-			 	<p><%= vo.getB_name() %></p>
+		<% for(BootcampVO bvo : list){%>
+			<div class="bootData" onclick="location.href='/camp/goReviews?bnum=<%=bvo.getId()%>'">
+			 	<img src =".\images\<%=bvo.getRogo() %>" id=<%=bvo.getB_name()%> >
+			 	<p><%= bvo.getB_name() %></p>
 			</div>
 		<%
 		
