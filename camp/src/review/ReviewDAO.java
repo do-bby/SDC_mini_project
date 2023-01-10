@@ -174,24 +174,6 @@ public class ReviewDAO {
 			}
 		}
 		
-		//리뷰삭제
-		public boolean deleteReview(int id) {
-			Connection conn = ConnectDB.connect();
-			PreparedStatement pstmt = null;
-			try {
-				pstmt = conn.prepareStatement("delete from reviews where rnum = ? and ");
-				if (pstmt.executeUpdate() != 0)
-					return true;
-				else
-					return false;
-			} catch (SQLException e) {
-				System.err.println("delete 과정에서 오류 발생 " + e);
-				return false;
-			} finally {
-				ConnectDB.close(conn);
-			}
-		}
-		
 		//삭제
 		public boolean delete(int id) {
 			Connection conn = ConnectDB.connect();

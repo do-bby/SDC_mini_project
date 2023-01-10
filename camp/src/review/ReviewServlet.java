@@ -105,7 +105,7 @@ public class ReviewServlet extends HttpServlet {
 			if (list.size() > 0)
 				request.setAttribute("list", list);
 		}else if(action.equals("delete")) {//회원정보 삭제
-			
+			dao.delete(rNum);
 		}
 		
 		request.setAttribute("bnum", bNum);
