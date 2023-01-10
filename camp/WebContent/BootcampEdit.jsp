@@ -249,21 +249,16 @@
 				<button class="BtnReview" onclick="location.href='/camp/review?bnum=<%=bvo.getId()%>'">리뷰 등록하기</button>
 			</div>
 		</article>
-		<form method = "post" action = "/camp/bootcamp2">
 		<article>
 			<div id="BtnMenu">
-				<button class="BtnCampEdit" onclick="location.href='/camp/bootcamp2?bnum=<%=bvo.getId()%>'">부트캠프 수정하기</button>
+				<button class="BtnCampEdit" onclick="location.href='/camp/update?bnum=<%=bvo.getId()%>'">부트캠프 수정하기</button>
 			</div>
 		</article>
-		</form>
-		<form method = "get" action = "/camp/bootcamp2">
 		<article>
 			<div id="BtnMenu">
-				<input type="hidden" name="action" value="delete">
 				<button class="BtnCampDelete" onclick="location.href='/camp/bootcamp2?action=delete&bnum=<%= bvo.getId()%>'">부트캠프 삭제하기</button>
 			</div>
 		</article>
-		</form>
 	</section>
 	<section id="section2">
 		<article class="mapAndScore">

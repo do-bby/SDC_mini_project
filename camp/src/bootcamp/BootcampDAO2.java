@@ -137,6 +137,7 @@ public class BootcampDAO2 {
 		Connection conn = ConnectDB.connect();
 		PreparedStatement pstmt = null;
 		try {
+			System.out.println(vo.toString());
 			pstmt = conn.prepareStatement(
 					"update bootcamps set " + 
 					"bprogram = ?, " + 

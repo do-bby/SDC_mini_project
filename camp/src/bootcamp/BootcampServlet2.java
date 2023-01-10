@@ -28,10 +28,12 @@ public class BootcampServlet2 extends HttpServlet {
 				System.out.println(id); //null
 				boolean result = dao.delete(Integer.parseInt(id));
 				if (result) {
-					request.setAttribute("msg", "의 대한 정보가 성공적으로 삭제되었습니다.");
+					request.setAttribute("msg", "성공적으로 삭제되었습니다.");
 				} else {
-					request.setAttribute("msg", "의 대한 정보가 삭제되지 않았습니다.");
-				}				
+					request.setAttribute("msg", "삭제되지 않았습니다.");
+				}
+				RequestDispatcher rd = request.getRequestDispatcher("BootcampSucess.jsp");
+				rd.forward(request, response);
 			}
 			//action == null, keyword == null
 			else {
@@ -42,7 +44,7 @@ public class BootcampServlet2 extends HttpServlet {
 		else {
 			List<BootcampVO2> list = dao.search(keyword);
 			if (list.size() == 0) {
-				request.setAttribute("msg", keyword + "의 대한 정보가 없습니다.");
+				request.setAttribute("msg", keyword + "정보가 없습니다.");
 			} else {
 				request.setAttribute("list", dao.search(keyword));
 				
