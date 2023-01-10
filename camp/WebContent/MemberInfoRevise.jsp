@@ -109,7 +109,7 @@
 <div class="wrap">
 <%
     MemberDAO mdao = new MemberDAO();
-	ArrayList<MemberVO> info = (ArrayList<MemberVO>)mdao.getMember(id); //test
+	ArrayList<MemberVO> info = (ArrayList<MemberVO>)mdao.getMemberlist(id); //test
 	if(info != null){
 %>
 	<!--<h2><%=id %>님의 회원정보 수정</h2> 메인페이지와 연결시 구현예정-->
