@@ -239,7 +239,11 @@
 			<%
 				}else{
 			%>
-					<button class="topBtn">로그인</button>
+					<form method="post" action="login">
+						<input type="hidden" name="action" value="logout">
+						<button class="topBtn">로그아웃</button>
+					</form>
+					
 			<%
 				}
 			%>
@@ -251,6 +255,7 @@
 	BootcampVO bvo = (BootcampVO)request.getAttribute("bvo");
 	
 	if(bvo != null){
+		
 	%>
 		<article id="logoBox">
 			<img id="bootLogo" src=".\images\<%=bvo.getRealimg() %>" width=830px; height=300px;>
@@ -268,16 +273,24 @@
 			</div>
 		</article>
 	</section>
+	
 	<section id="section2">
 		<article class="mapAndScore">
 		<div id="map" style="width:300px; height:200px;"></div>
 		</article>
+	<% 	ArrayList<ReviewVO> list = (ArrayList<ReviewVO>)request.getAttribute("reviewList");
+		if (list.size() != 0){
+	%>
 		<article class="mapAndScore">
-			<p>강사진 만족도</p> <span class="star" style="width:100%;">star</span>
-			<p>학습환경 만족도</p><span class="star" style="width:100%;">star</span>
-			<p>교육지원 수준</p> <span class="star" style="width:100%;">star</span>
+			<p>강사진 만족도</p> <span class="star" style="width:100%;"></span>
+			<p>학습환경 만족도</p><span class="star" style="width:100%;"></span>
+			<p>교육지원 수준</p> <span class="star" style="width:100%;"></span>
 		</article>
+	<%
+		}
+	%>
 	</section>
+	
 	<section id="section3"">
 	
 	<script type="text/javascript">
@@ -299,9 +312,9 @@
 	</script>
 	<%
 	
-	ArrayList<ReviewVO> list = (ArrayList<ReviewVO>)request.getAttribute("reviewList");
+	
 	MemberDAO2 mDao= new MemberDAO2();
-	if (list != null){
+	if (list.size() != 0){
 		
 	%>
 <% 	
@@ -329,8 +342,15 @@
 		}
 %>
 	<%
+	}else{	
+	%>
+		<article>
+			<div id="reviewBox">
+				<h1 style="margin-left:250px;margin-top:100px;">등록된 리뷰가 없습니다😭</h1>
+			</div>
+		</article>
+	<%
 	}
-		
 	%>		
 				
 	</section>

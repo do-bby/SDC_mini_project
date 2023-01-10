@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import db.ConnectDB;
@@ -41,6 +43,7 @@ public class ReviewDAO {
 			}
 			return list;
 		}
+		
 		//특정 회원이 쓴 리뷰 불러오기
 		public ReviewVO listOne(int id){
 			Connection conn = ConnectDB.connect();
@@ -80,7 +83,7 @@ public class ReviewDAO {
 			List<ReviewVO> list = new ArrayList<>();
 			try {
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select rnum,goodcom,badcom,bscope,instsat,edusat,learnsat,bnum,mnum from reviews"
+				rs = stmt.executeQuery("select rnum,goodcom,badcom,bscope,instsat,edusat,learnsat,bnum,mnum,rdate from reviews"
 						+ " where bnum = "+bnum);
 				while (rs.next()) {
 					vo = new ReviewVO();
@@ -93,6 +96,7 @@ public class ReviewDAO {
 					vo.setE_score(rs.getInt("learnsat"));
 					vo.setB_id(rs.getInt("bnum"));
 					vo.setM_id(rs.getInt("mnum"));
+					vo.setWriteDate(rs.getString("rdate"));
 								
 					list.add(vo);
 				}
@@ -109,7 +113,7 @@ public class ReviewDAO {
 			Connection conn = ConnectDB.connect();
 			boolean result = true;
 			try {
-				PreparedStatement pstmt = conn.prepareStatement("insert into reviews values(reviewsseq.nextval,?,?,?,?,?,?,?,?)");
+				PreparedStatement pstmt = conn.prepareStatement("insert into reviews values(reviewsseq.nextval,?,?,?,?,?,?,?,?,?)");
 				pstmt.setString(1, vo.getGood());
 				pstmt.setString(2, vo.getBad());
 				pstmt.setInt(3, vo.getScore());
@@ -118,7 +122,7 @@ public class ReviewDAO {
 				pstmt.setInt(6, vo.getE_score());
 				pstmt.setInt(7, vo.getB_id());
 				pstmt.setInt(8, vo.getM_id());
-				
+				pstmt.setString(9, vo.getWriteDate());
 				pstmt.executeUpdate();
 				
 			}catch(SQLException e) {
@@ -183,4 +187,6 @@ public class ReviewDAO {
 				ConnectDB.close(conn);
 			}
 		}
+		
+		
 }
