@@ -142,10 +142,10 @@ public class BootcampDAO2 {
 					"update bootcamps set " + 
 					"bprogram = ?, " + 
 					"bacademy = ?, " + 
-					"rogo = ? " +
-					"realimg = ? " +
-					"site = ? " +
-					"mnum = ? " +
+					"rogo = ?, " +
+					"realimg = ?, " +
+					"url = ?, " +
+					"mnum = ?, " +
 					"adress = ? " +
 					"where bnum = ?");
 			

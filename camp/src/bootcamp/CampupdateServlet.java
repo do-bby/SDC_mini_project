@@ -29,7 +29,9 @@ public class CampupdateServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		BootcampDAO2 dao = new BootcampDAO2();
+		BootcampVO2 vo = new BootcampVO2();
+		
 		request.setCharacterEncoding("UTF-8");
 		String campId = request.getParameter("bnum");
 		String b_name = request.getParameter("bprogram");
@@ -39,11 +41,16 @@ public class CampupdateServlet extends HttpServlet {
 		String site = request.getParameter("site");
 		String m_id = request.getParameter("mnum");
 		String address = request.getParameter("address");
-		BootcampDAO2 dao = new BootcampDAO2();
-		BootcampVO2 vo = new BootcampVO2();
+		
 		System.out.println(campId);
 		System.out.println(b_name);
 		System.out.println(a_name);
+		System.out.println(rogo);
+		System.out.println(realimg);
+		System.out.println(site);
+		System.out.println(m_id);
+		System.out.println(address);
+	
 		vo.setId(Integer.parseInt(campId));
 		vo.setB_name(b_name);
 		vo.setA_name(a_name);
@@ -52,6 +59,7 @@ public class CampupdateServlet extends HttpServlet {
 		vo.setSite(site);
 		vo.setM_id(Integer.parseInt(m_id));
 		vo.setAddress(address);
+		
 		boolean result = dao.update(vo);
 		if (result) {			
 			request.setAttribute("msg", "성공적으로 수정되었습니다.");			

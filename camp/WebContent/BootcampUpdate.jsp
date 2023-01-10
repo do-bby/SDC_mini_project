@@ -181,6 +181,8 @@
 %>
    <section id="section2">
    <form method="post" action="/camp/update" >
+   		 <input type="hidden" name="bnum" value= <%= vo.getId() %>> 
+   		 <input type="hidden" name="mnum" value=<%= vo.getM_id() %>>    
          <article>
          <p>부트캠프이름</p>
             <textarea  name= "bprogram" rows=7 cols=100% >
