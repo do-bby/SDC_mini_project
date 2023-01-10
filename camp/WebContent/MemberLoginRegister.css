@@ -33,6 +33,7 @@ body {
 }
 
 /* BUTTON */
+
 a.button {
     position: absolute;
     left: 20px;
@@ -472,6 +473,7 @@ input {
     font: 16px/26px "Raleway", sans-serif;
     margin: 10px 0 0;
 }
+
 .form-wrap.open {
     -webkit-transform: translateX(0);
     -moz-transform: translateX(0);

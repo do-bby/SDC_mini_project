@@ -177,7 +177,7 @@ $('.recovery .button').on('click', function(event) {
 											return false;
 										}
 										else{
-												alert("회원가입이 완료되었습니다");
+												alert("회원가입이 완료되었습니다"); //구문 수정 필요함 (오류 생겨도 완료 메시지 뜨는 중)
 										}
 									}
 									
@@ -194,6 +194,7 @@ $('.recovery .button').on('click', function(event) {
 						<!-- TABS CONTENT SIGNUP -->
 						<div id="signup-tab-content">
 							<form class="signup-form" action="/member" method="post" name="userInfo">
+							<input type="hidden" name="input" value="memberRegister"> 
 								<input type="text" class="input" id = "id" name="id" autocomplete="off" placeholder="아이디를 입력하세요" style="width: 75%;" required> 
 								<input type="button" value="중복확인" style="width: 130px ;height:50px; margin:0 0 0 0;" onclick="openIdCheck()">
 								<input type="hidden" name="idDuplication" value="idUncheck">
@@ -204,8 +205,22 @@ $('.recovery .button').on('click', function(event) {
 								<input type="text" class="input" id = "nick" name="nick" autocomplete="off" style="width: 75%;"placeholder="닉네임을 입력하세요" required>
 								<input type="button" value="중복확인" style="width: 130px;height:50px;  margin:0 0 0 0;" onclick="opennickCheck()">
 								<input type="hidden" name="nickDuplication" value="nickUncheck">
-									<input type="submit" class="button" onclick="checkvalue()" value="회원가입 완료하기">
-									
+								<select name="question" class="input">
+								<option value="none">== 보안질문 1개 선택 ==</option>
+								<option value="1">어머니의 성함은?</option>
+								<option value="2">아버지의 성함은?</option>
+								<option value="3">나의 보물1호는?</option>
+								<option value="4">기억에 남는 추억의 장소는?</option>
+								<option value="5">기억에 남는 추억의 선물은?</option>
+								<option value="6">인상 깊게 읽은 책 이름은?</option>
+								<option value="7">타시 태어나면 되고 싶은 것은?</option>
+								<option value="8">내가 좋아하는 책 이름은?</option>
+								</select>
+								<br>
+								<input placeholder="답변을 입력하세요." class="input" name="answer" required><br>
+								<input type="submit" class="button" onclick="checkvalue()" value="회원가입 완료하기">
+						
+   								
 									
 							</form>
 						</div>

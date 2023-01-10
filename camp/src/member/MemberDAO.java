@@ -17,18 +17,21 @@ public class MemberDAO {
 		Connection conn = ConnectDB.connect();
 		PreparedStatement pstmt = null;
 		try {
-			String sql = "INSERT INTO members VALUES(membersseq.NEXTVAL,?,?,?,?,?,?)";
+			String sql = "INSERT INTO members VALUES(membersseq.NEXTVAL,?,?,?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1,vo.getid());
 			pstmt.setString(2,vo.getpwd());
 			pstmt.setString(3,vo.getname());
 			pstmt.setString(4,vo.getemail());
-			pstmt.setInt(5,vo.getpnum());
+			pstmt.setString(5,vo.getpnum());
 			pstmt.setString(6,vo.getnname());
+			pstmt.setString(7,vo.getquestion());
+			pstmt.setString(8,vo.getanswer());
 			pstmt.executeUpdate();
 			return true;
 		} catch(SQLException e) {
 			System.err.println("회원정보 insert과정에서 오류 발생"+e);
+			e.printStackTrace();
 			return false;
 		}finally {
 			close(pstmt,null,conn);
@@ -124,8 +127,10 @@ public class MemberDAO {
 					 vo.setpwd(rs.getString("pwd"));
 					 vo.setname(rs.getString("name"));
 					 vo.setemail(rs.getString("email"));
-					 vo.setpnum(rs.getInt("pnum"));
+					 vo.setpnum(rs.getString("pnum"));
 					 vo.setnname(rs.getString("nname"));
+					 vo.setquestion(rs.getString("question"));
+					 vo.setanswer(rs.getString("answer"));
 					 list.add(vo);
 				 }
 		 }catch(SQLException e) {
@@ -136,22 +141,25 @@ public class MemberDAO {
 		 return list;
 	 }
 	 
-	 public int infoUpdate(String mid, String mpwd, String mname, String memail, int mpnum, String mnname) {
+	 public int infoUpdate(String mid, String mpwd, String mname, String memail, String mpnum, String mnname, String mquestion, String manswer) {
 		 Connection conn = ConnectDB.connect();
 		 int value = 0;
 			PreparedStatement pstmt = null;
 			try {
-				String sql = "UPDATE members SET id=?, pwd=?, name=?, email=?, pnum=?, nname=?";
+				String sql = "UPDATE members SET id=?, pwd=?, name=?, email=?, pnum=?, nname=?, question=?, answer=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1,mid);
 				pstmt.setString(2,mpwd);
 				pstmt.setString(3,mname);
 				pstmt.setString(4,memail);
-				pstmt.setInt(5,mpnum);
+				pstmt.setString(5,mpnum);
 				pstmt.setString(6,mnname);
+				pstmt.setString(7,mquestion);
+				pstmt.setString(8,manswer);
 				pstmt.executeUpdate();
 			} catch(SQLException e) {
 				System.err.println("회원정보 수정 과정에서 오류 발생"+e);
+				value = 1;
 			}finally {
 				close(pstmt,null,conn);
 			}

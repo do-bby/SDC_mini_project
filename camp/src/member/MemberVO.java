@@ -6,7 +6,7 @@ public class MemberVO {
 	private String pwd;
 	private String name;
 	private String email;
-	private int pnum;
+	private String pnum;
 	private String nname;
 	private String question;
 	private String answer;
@@ -49,11 +49,11 @@ public void setemail(String email) {
 public String getemail() {
 	return email;
 }
-public void setpnum(int pnum) {
+public void setpnum(String pnum) {
 	this.pnum = pnum;
 }
 
-public int getpnum() {
+public String getpnum() {
 	return pnum;
 }
 public void setnname(String nname) {
