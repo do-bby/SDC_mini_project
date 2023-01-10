@@ -88,6 +88,7 @@ public class BootcampDAO2 {
 			while (rs.next()) {
 				vo = new BootcampVO2();
 				vo.setId(rs.getInt("bnum"));
+				System.out.println(vo.getId());
 				vo.setB_name(rs.getString("bprogram"));
 				vo.setA_name(rs.getString("bacademy"));
 				vo.setRogo(rs.getString("rogo"));
@@ -110,14 +111,18 @@ public class BootcampDAO2 {
 		Connection conn = ConnectDB.connect();
 		boolean result = true;
 		try {
-			PreparedStatement pstmt = conn.prepareStatement("insert into bootcamps values(bootcamps_seq.nextval,?,?,?,?,?,?,?)");
-			pstmt.setString(2, vo.getB_name());
-			pstmt.setString(3, vo.getA_name());
-			pstmt.setString(4, vo.getRogo());
-			pstmt.setString(5,vo.getRealimg());
-			pstmt.setString(6, vo.getSite());
-			pstmt.setInt(7, vo.getM_id());
-			pstmt.setString(8,vo.getAddress());
+			System.out.println(vo.toString());
+			PreparedStatement pstmt = conn.prepareStatement("insert into bootcamps values(bootcampsseq.nextval,?,?,?,?,?,?,?)");
+			pstmt.setString(1, vo.getB_name());
+			pstmt.setString(2, vo.getA_name());
+			pstmt.setString(3, vo.getRogo());
+			pstmt.setString(4,vo.getRealimg());
+			pstmt.setString(5, vo.getSite());
+			pstmt.setInt(6, vo.getM_id());
+			pstmt.setString(7,vo.getAddress());
+			pstmt.executeUpdate();
+			System.out.println(vo.getB_name());
+			System.out.println(vo.getA_name());
 		}catch(SQLException e) {
 			result = false;
 			e.printStackTrace();
@@ -149,8 +154,9 @@ public class BootcampDAO2 {
 			pstmt.setString(4,vo.getRealimg());
 			pstmt.setString(5, vo.getSite());
 			pstmt.setInt(6, vo.getM_id());
-			pstmt.setInt(7, vo.getId());
-			pstmt.setString(8, vo.getAddress());
+			pstmt.setString(7, vo.getAddress());
+			pstmt.setInt(8, vo.getId());
+			
 			pstmt.executeUpdate();
 			return true;
 		} catch (SQLException e) {
@@ -166,7 +172,8 @@ public class BootcampDAO2 {
 		Connection conn = ConnectDB.connect();
 		PreparedStatement pstmt = null;
 		try {
-			pstmt = conn.prepareStatement("delete from bootcamps where mnum = " + id);
+			System.out.println(id);
+			pstmt = conn.prepareStatement("delete from bootcamps where bnum = " + id);
 			if (pstmt.executeUpdate() != 0)
 				return true;
 			else

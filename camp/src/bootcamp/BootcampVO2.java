@@ -13,12 +13,6 @@ public class BootcampVO2 {
 	private int m_id; // 회원 id
 	private String address;
 	
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
 	public int getId() {
 		return id;
 	}
@@ -61,6 +55,12 @@ public class BootcampVO2 {
 	public void setM_id(int m_id) {
 		this.m_id = m_id;
 	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
+	}
 
 	@Override
 	public String toString() {
@@ -68,6 +68,7 @@ public class BootcampVO2 {
 				", rogo=" + rogo + 
 				", realimg=" + realimg +
 				", site=" + site +
-				", m_id=" + m_id +"]";
+				", m_id=" + m_id +
+				", address=" + address +"]";
 	}
 }

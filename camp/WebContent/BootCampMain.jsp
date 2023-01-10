@@ -62,11 +62,12 @@
   			</form>
 		</nav>
 		<button class="login">로그인</button>
-		<button onclick="location.href='/camp/bootcamp2/goBootcamps' ">부트캠프등록하기</button>	
+		<button onclick="location.href='/camp/goBootcamps' ">부트캠프등록하기</button>	
 	</header>
 
 
 <%
+
 	ArrayList<BootcampVO2> list = (ArrayList<BootcampVO2>)request.getAttribute("list");
 	if(list != null){
 %>
@@ -74,7 +75,7 @@
 	<section>
 		<article>
 		<% for(BootcampVO2 vo : list){%>
-			<div class="bootData" onclick="location.href='/camp/goReviews?bnum=<%=vo.getId()%>'">
+			<div class="bootData" onclick="location.href='/camp/goReviews2?bnum=<%=vo.getId()%>'">
 			 	<img src =".\images\<%=vo.getRogo() %>" id=<%=vo.getB_name()%> >
 			 	<p><%= vo.getB_name() %></p>
 			</div>

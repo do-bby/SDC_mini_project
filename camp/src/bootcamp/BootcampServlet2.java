@@ -19,12 +19,13 @@ public class BootcampServlet2 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String keyword = request.getParameter("keyword");
-		String id = request.getParameter("id");
+		String id = request.getParameter("bnum");//??
 		String action = request.getParameter("action");
+		System.out.println(action);
 		BootcampDAO2 dao = new BootcampDAO2();
-		
 		if(keyword == null) {
 			if(action != null && action.equals("delete")) {
+				System.out.println(id); //null
 				boolean result = dao.delete(Integer.parseInt(id));
 				if (result) {
 					request.setAttribute("msg", "의 대한 정보가 성공적으로 삭제되었습니다.");
@@ -65,21 +66,24 @@ public class BootcampServlet2 extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
-		String b_name = request.getParameter("b_name");
-		String a_name = request.getParameter("a_name");
+		String b_name = request.getParameter("bprogram");
+		String a_name = request.getParameter("bacademy");
 		String rogo = request.getParameter("rogo");
 		String realimg = request.getParameter("realimg");
 		String site = request.getParameter("site");
-		String m_id = request.getParameter("m_id");
+		String m_id = request.getParameter("mnum");
+		String address = request.getParameter("address");
 		BootcampDAO2 dao = new BootcampDAO2();
-		BootcampVO2 vo = new BootcampVO2();
-		vo.setB_name(b_name);
-		vo.setA_name(a_name);
-		vo.setRogo(rogo);
-		vo.setRealimg(realimg);
-		vo.setSite(site);
-		vo.setM_id(Integer.parseInt(m_id));
-		if(action == "insert") {
+		if(action.equals("insert")) {
+			BootcampVO2 vo = new BootcampVO2();
+			vo.setB_name(b_name);
+			vo.setA_name(a_name);
+			vo.setRogo(rogo);
+			vo.setRealimg(realimg);
+			vo.setSite(site);
+			vo.setM_id(Integer.parseInt("1"));
+			vo.setAddress(address);
+			
 			boolean result = dao.insert(vo);
 			if (result) {			
 				request.setAttribute("msg", "성공적으로 등록되었습니다.");			
@@ -87,6 +91,14 @@ public class BootcampServlet2 extends HttpServlet {
 				request.setAttribute("msg", "등록되지 않았습니다.");
 			}
 		} else {
+			BootcampVO2 vo = new BootcampVO2();
+			vo.setB_name(b_name);
+			vo.setA_name(a_name);
+			vo.setRogo(rogo);
+			vo.setRealimg(realimg);
+			vo.setSite(site);
+			vo.setM_id(Integer.parseInt("1"));
+			vo.setAddress("뮤");
 			boolean result = dao.update(vo);
 			if (result) {			
 				request.setAttribute("msg", "성공적으로 수정되었습니다.");			
@@ -95,7 +107,7 @@ public class BootcampServlet2 extends HttpServlet {
 			}
 		}
 		request.setAttribute("list", dao.listAll());
-		request.getRequestDispatcher("BootCampMain.jsp").forward(request, response);
+		request.getRequestDispatcher("BootcampSucess.jsp").forward(request, response);
 	}
 
 }

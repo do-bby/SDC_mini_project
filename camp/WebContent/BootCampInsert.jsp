@@ -173,28 +173,14 @@
 	
 
 	<section id="section1">
-	<%
-	BootcampVO bvo = (BootcampVO)request.getAttribute("bvo");
-	
-	if(bvo != null){
-	%>
-		<article id="logoBox">
-			<img id="bootLogo" src=".\images\<%=bvo.getRealimg() %>" width=830px; height=300px;>
-			<a href=<%=bvo.getSite() %>><img id="academyLogo" src=".\images\<%=bvo.getRogo() %>" width=100px; height=100px;></a>
-			<h3 id="aname"><%= bvo.getA_name() %> - <%= bvo.getB_name()%></h3>
-		</article>		
-	<%
-	}
-	%>		
+	<%-- 멤버 id 받아올 곳 --%>
+			
 	</section>
-
 
 	<section id="section2">
 	<form method="post" action="/camp/bootcamp2" >
 			<article>
-			
 			<input type="hidden" name="action" value="insert">
-			 
 			<p>부트캠프이름</p>
 				<textarea  name= "bprogram" rows=7 cols=100% ></textarea><br>
 			<p>학원이름</p>
