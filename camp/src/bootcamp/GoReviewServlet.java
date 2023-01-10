@@ -13,10 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 import review.ReviewDAO;
 
 @WebServlet("/goReviews")
-public class goReviewsServlet extends HttpServlet {
+public class GoReviewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public goReviewsServlet() {super();}
+    public GoReviewServlet() {super();}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -41,7 +41,7 @@ public class goReviewsServlet extends HttpServlet {
 			rd.forward(request, response);
 		}else {
 			request.setAttribute("list", bDao.listAll());
-			RequestDispatcher rd = request.getRequestDispatcher("BootMainYebin.jsp");
+			RequestDispatcher rd = request.getRequestDispatcher("bootMainYebin2.jsp");
 			rd.forward(request, response);
 			
 		}
@@ -95,3 +95,4 @@ public class goReviewsServlet extends HttpServlet {
 	}
 
 }
+

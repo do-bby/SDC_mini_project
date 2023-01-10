@@ -30,6 +30,7 @@ public class MemberLoginServlet extends HttpServlet {
 		//초기변수 선언
 		MemberLoginDAO dao = new MemberLoginDAO();//멤버로그인 dao 가져옴
 		MemberVO vo =new MemberVO(); // 멤버 객체정보 가져옴
+		MemberDAO mDao = new MemberDAO();
 		HttpSession session; //세션객체생성
 		
 		//vo에 넣을 객체값 선언
@@ -56,6 +57,8 @@ public class MemberLoginServlet extends HttpServlet {
 				session.setAttribute("login.id", id);	//id를 세션에 저장
 				session.setAttribute("login.pwd", pwd); //pwd를 세션에 저장
 				session.setAttribute("login.mnum", mnum); //mnum을 세션에 저장
+				session.setAttribute("loginVO", mDao.getMember((String)session.getAttribute("login.id")));
+				
 				response.sendRedirect("bootcamp"); //해당 링크(여기선 서블릿의 @WebServlet 값)로 요청함
 			} else {
 				request.setAttribute("msg", " 아이디 또는 비밀번호를 잘못 입력했습니다. <br> 입력하신 내용을 다시 확인해주세요.");//msg 부분에 이 값을 띄워줌
