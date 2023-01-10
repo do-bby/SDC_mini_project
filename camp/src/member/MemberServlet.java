@@ -107,10 +107,10 @@ public class MemberServlet extends HttpServlet {
 			MemberDAO dao = new MemberDAO();
 			int result = dao.infoUpdate(mid,mpwd,mname,memail,mpnum,mnname,mq,manswer,mnum);
 			
-			if (result ==0) {
+			if (result==0) {
 				System.out.println("1");
 				request.setAttribute("msg", "회원정보 수정이 완료되었습니다.");
-				request.getRequestDispatcher("/MemberInfo.jsp").forward(request, response);
+				request.getRequestDispatcher("/MemberInfoRevise.jsp").forward(request, response);
 			}else {
 				System.out.println("2");
 				request.setAttribute("msg", "회원정보 수정에 오류가 발생했습니다.");					

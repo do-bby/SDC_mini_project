@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import bootcamp.BootcampDAO;
 import bootcamp.BootcampVO;
-import member.MemberDAO2;
+import member.MemberDAO;
 
 @WebServlet("/review")
 public class ReviewServlet extends HttpServlet {
@@ -39,7 +39,7 @@ public class ReviewServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession();//세션 객체 생성
-		MemberDAO2 mDao = new MemberDAO2();
+		MemberDAO mDao = new MemberDAO();
 
 		
 		request.setCharacterEncoding("utf-8");
@@ -51,7 +51,7 @@ public class ReviewServlet extends HttpServlet {
 		int tScore = Integer.parseInt(request.getParameter("teachScore")); // 강사진만족도
 		int eScore = Integer.parseInt(request.getParameter("learnScore")); // 학습환경 만족도
 		int sScore = Integer.parseInt(request.getParameter("eduScore")); // 교육지원 수준
-		int mNum = mDao.getMember((String)session.getAttribute("login.id")).getMnum();
+		int mNum = mDao.getMember((String)session.getAttribute("login.id")).getmnum();
 
 		String pattern = "yyyy.MM.dd";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);

@@ -26,7 +26,7 @@
 			<option value="4">기억에 남는 추억의 장소는?</option>
 			<option value="5">기억에 남는 추억의 선물은?</option>
 			<option value="6">인상 깊게 읽은 책 이름은?</option>
-			<option value="7">타시 태어나면 되고 싶은 것은?</option>
+			<option value="7">다시 태어나면 되고 싶은 것은?</option>
 			<option value="8">내가 좋아하는 책 이름은?</option>
 		</select>
 		<br>

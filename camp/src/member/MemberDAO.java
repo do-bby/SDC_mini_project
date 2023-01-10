@@ -109,7 +109,7 @@ public class MemberDAO {
 	        return false;
 	    }
 	
-	 public List<MemberVO> getMember(String id){
+	 public List<MemberVO> getMemberlist(String id){
 		 List<MemberVO> list = new ArrayList<>();
 		 Connection conn = ConnectDB.connect();
 		 PreparedStatement pstm = null;
@@ -139,6 +139,35 @@ public class MemberDAO {
 			 close(pstm,null,conn);
 		 }
 		 return list;
+	 }
+	 
+	 public MemberVO getMember(String id){
+		 Connection conn = ConnectDB.connect();
+		 PreparedStatement pstm = null;
+		 ResultSet rs = null;
+		 MemberVO vo = null;
+		 try {
+			 	pstm = conn.prepareStatement("SELECT * FROM members WHERE ID=?");
+			 	pstm.setString(1, id);
+				rs = pstm.executeQuery(); 
+				 
+				 while(rs.next()) {
+					 vo = new MemberVO();
+					 vo.setmnum(rs.getInt("mnum"));
+					 vo.setid(rs.getString("id"));
+					 vo.setpwd(rs.getString("pwd"));
+					 vo.setname(rs.getString("name"));
+					 vo.setemail(rs.getString("email"));
+					 vo.setpnum(rs.getString("pnum"));
+					 vo.setnname(rs.getString("nname"));
+				 }
+				 
+		 }catch(SQLException e) {
+			 e.printStackTrace();
+		 }finally {
+			 close(pstm,null,conn);
+		 }
+		 return vo;
 	 }
 	 
 	 public int infoUpdate(String mid, String mpwd, String mname, String memail, String mpnum, String mnname, String mquestion, String manswer, String mnum) {

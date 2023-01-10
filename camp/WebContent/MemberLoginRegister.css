@@ -101,8 +101,8 @@ a.button:hover {
     background: #1F222C;
 }
 .logo a {
-    height: 28px;
-    width: 28px;
+    height: 80%;
+    width: 40%;
     display: block;
     position: absolute;
     top: 0;

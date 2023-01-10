@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import member.MemberDAO;
-import member.MemberDAO2;
 
 
 @WebServlet("/bootcamp")
@@ -22,11 +21,11 @@ public class BootcampServlet extends HttpServlet {
 
     public BootcampServlet() {super();}
     private BootcampDAO bDao;
-    private MemberDAO2 mDao;
+    private MemberDAO mDao;
     
     public void init() {
     	bDao = new BootcampDAO();
-    	mDao = new MemberDAO2();
+    	mDao = new MemberDAO();
 	}
     
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

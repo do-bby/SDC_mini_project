@@ -78,27 +78,29 @@
 
 
 </style>
-<%
-	//session에서 아이디 값을 가지고 옴
-	//String id = (String) session.getAttribute("id");
-	//String name = request.getParameter("name");
-	String id = "ㅇㅇㅇ"; //현재는 테스트를 위해 임의의 값을 넣은 상태. 메인 페이지와 연결지 위에 코드로 변경 예정
-	if(id ==null){ %>
-	<script>
-		alert("로그인 후 회원정보 조회가 가능합니다");
-	</script> <%
-		response.sendRedirect("MemberDesign.html"); //만약 로그인된 상태가 아니라면 로그인 창으로 이동
-	}
-%>	
+
+<%	
+			
+			boolean loginCheck = (boolean)session.getAttribute("isLogOn");
+			MemberVO mvo = (MemberVO)session.getAttribute("loginVO");
+			if(loginCheck ==false){
+			%>
+			<script>
+				alert("로그인 후 회원정보 조회가 가능합니다");
+			</script><%
+			response.sendRedirect("/MemberLogin.jsp");
+				}
+			%>
+				
 </head>
 <body>
 <div class="wrap">
 <%
     MemberDAO mdao = new MemberDAO();
-	ArrayList<MemberVO> info = (ArrayList<MemberVO>)mdao.getMember(id); //test
+	ArrayList<MemberVO> info = (ArrayList<MemberVO>)mdao.getMemberlist(mvo.getid()); //test
 	if(info != null){
 %>
-	<!--<h2><%=id %>님의 회원정보 조회</h2> 메인페이지와 연결시 구현예정-->
+	<!--<h2><%=mvo.getnname() %>님의 회원정보 조회</h2> 메인페이지와 연결시 구현예정-->
 	<h2>회원정보 조회</h2>
 	<table class="userinfo">
 <%

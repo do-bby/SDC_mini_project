@@ -112,7 +112,9 @@ $('.recovery .button').on('click', function(event) {
 				<div class="logo">
 					<!-- logo 대체 필요 -->
 					<a href="#"><img
-						src="/images/부트모아로고3.png"
+						src="/images/부트모아로고eng.png"
+						width=100%
+						height=100%
 						alt=""></a>
 				</div>
 				<!-- TOGGLE -->

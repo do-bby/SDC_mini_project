@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ page import="review.ReviewVO,member.MemberVO2,bootcamp.BootcampVO,java.util.ArrayList"%>
+ <%@ page import="review.ReviewVO,member.MemberVO,bootcamp.BootcampVO,java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,10 +53,12 @@
 <h1>부트캠프 후기모음 사이트 메인페이지</h1>
 <%
 	//boolean loginCheck = (boolean)session.getAttribute("isLogOn");
-	MemberVO2 mvo = (MemberVO2)session.getAttribute("loginVO");
+	MemberVO mvo = (MemberVO)session.getAttribute("loginVO");
 	if(session.getAttribute("isLogOn") != null){ //로그인 해서 세션이 생성되면 환영 문구 띄움
 %>
 		<h1><%=mvo.getnname()%>님 환영합니다 ㅎㅎ</h1>
+		<button type="button" onclick="location.href='MemberInfo.jsp'">회원정보 조회/수정</button>
+		
 <%
 	}
 
