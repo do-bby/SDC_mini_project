@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- <%@ page import = "java.util.ArrayList, member.MemberVO"%>
+<%@ page import = "java.util.ArrayList, member.MemberVO"%>
 <%@ page import ="member.MemberDAO" %>
 <!DOCTYPE html>
 <html>
@@ -92,29 +92,40 @@
 	}
 
 </style>
-<%
-	//session에서 아이디 값을 가지고 옴
-	//String id = (String) session.getAttribute("id");
-	//String name = request.getParameter("name");
-	String id = "ㅇㅇㅇ"; //현재는 테스트를 위해 임의의 값을 넣은 상태. 메인 페이지와 연결지 위에 코드로 변경 예정
-	if(id ==null){ %>
-	<script>
-		alert("로그인 후 회원정보 조회가 가능합니다");
-	</script> <%
-		response.sendRedirect("MemberDesign.html"); //만약 로그인된 상태가 아니라면 로그인 창으로 이동
-	}
-%>	
+<%	
+			
+			boolean loginCheck = (boolean)session.getAttribute("isLogOn");
+			MemberVO mvo = (MemberVO)session.getAttribute("loginVO");
+			if(loginCheck ==false){
+			%>
+			<script>
+				alert("로그인 후 회원정보 조회가 가능합니다");
+			</script><%
+			response.sendRedirect("/MemberLogin.jsp");
+				}
+			%>
+
+<script>
+function openIdCheck(){
+	window.name = "parentForm";
+	window.open("IdCheckForm.jsp","idchkForm","width=500,height=300");
+}	
+
+function opennickCheck(){
+	window.name = "parentForm";
+	window.open("NickCheckForm.jsp","nickchkForm","width=500,height=300");
+}
+</script>
 </head>
 <body>
 <div class="wrap">
 <%
     MemberDAO mdao = new MemberDAO();
-	ArrayList<MemberVO> info = (ArrayList<MemberVO>)mdao.getMemberlist(id); //test
+	ArrayList<MemberVO> info = (ArrayList<MemberVO>)mdao.getMemberlist(mvo.getid()); //test
 	if(info != null){
 %>
-	<!--<h2><%=id %>님의 회원정보 수정</h2> 메인페이지와 연결시 구현예정-->
-	<h2>회원정보 수정</h2>
-	<form name="infoform" action="member" method="post">
+	<h2><%=mvo.getnname()%>님의 회원정보 수정</h2>
+	<form name="userInfo" action="member" method="post">
 		<input type="hidden" name="input" value="infoRevise"> 
 		<table class="userinfo">
 		
@@ -124,7 +135,9 @@
 			
 			<tr>
 			<td>아이디</td>
-			<td><input type="text" name="mid" value="<%=vo.getid() %>"></td>
+			<td><input type="text" name="mid" id ="id" value="<%=vo.getid() %>" style="width:85%;">
+			<input type="button" value="중복확인" onclick="openIdCheck()">
+			<input type="hidden" name="idDuplication" value="idUncheck"></td>
 			</tr>
 			
 			<tr>
@@ -149,7 +162,9 @@
 			
 			<tr>
 			<td>닉네임</td>
-			<td><input type="text" name="mnname" value="<%=vo.getnname() %>"></td>
+			<td><input type="text" name="mnname" id ="nick" value="<%=vo.getnname() %>" style="width:85%;">
+			<input type="button" value="중복확인" onclick="opennickCheck()">
+			<input type="hidden" name="nickDuplication" value="nickUncheck"></td>
 			</tr>
 			
 			<tr>
@@ -183,7 +198,7 @@
 	
 	<input type="submit" class="infobutton" value="수정 완료">
 	<button type="button" class="infobutton" onclick="location.href='MemberInfo.jsp'">뒤로가기</button>
-	</form> <!-- MemberServlet에서 msg받아서 띄울 예정(Servlet에 메시지는 있지만 안되는 중) -->
+	</form> 
 	<%	
 								if (request.getAttribute("msg") != null) { 
 								%>
@@ -193,5 +208,6 @@
 								<% 
 								} 
 								%>
+</div>
 </body>
 </html>

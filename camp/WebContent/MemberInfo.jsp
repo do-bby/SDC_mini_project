@@ -100,8 +100,8 @@
 	ArrayList<MemberVO> info = (ArrayList<MemberVO>)mdao.getMemberlist(mvo.getid()); //test
 	if(info != null){
 %>
-	<!--<h2><%=mvo.getnname() %>님의 회원정보 조회</h2> 메인페이지와 연결시 구현예정-->
-	<h2>회원정보 조회</h2>
+	<h2><%=mvo.getnname() %>님의 회원정보 조회</h2>
+
 	<table class="userinfo">
 <%
 		for(MemberVO vo : info){
@@ -152,7 +152,7 @@
 	</table>
 	<button type="button" onclick="location.href='BootCampMain.jsp'">메인페이지로 돌아가기</button>
 	<button type="button" onclick="location.href='MemberInfoRevise.jsp'">회원정보 수정</button>
-	</form>
+
 </div>
 </body>
 </html>

@@ -20,8 +20,14 @@ function pValue(){
 function sendCheckValue(){
     // 중복체크 결과인 idCheck 값을 전달한다.
     opener.document.userInfo.idDuplication.value ="idCheck";
+
     // 회원가입 화면의 ID입력란에 값을 전달
-    opener.document.userInfo.id.value = document.getElementById("userId").value;
+    if(opener.document.userInfo.id.value != null){
+    	opener.document.userInfo.id.value = document.getElementById("userId").value;
+    }else if(opener.document.userInfo.mid.value != null){
+    	opener.document.userInfo.mid.value = document.getElementById("userId").value;
+    }
+    
     if (opener != null) {
         opener.idchkForm = null;
         self.close();

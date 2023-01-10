@@ -21,7 +21,12 @@ function sendCheckValue(){
     // 중복체크 결과인 nickCheck 값을 전달한다.
     opener.document.userInfo.nickDuplication.value ="nickCheck";
     // 회원가입 화면의 닉네임 입력란에 값을 전달
-    opener.document.userInfo.nick.value = document.getElementById("nickname").value;
+    if(opener.document.userInfo.nick.value != null){
+    	opener.document.userInfo.nick.value = document.getElementById("nickname").value;
+    }else if(opener.document.userInfo.mnname.value != null){
+    	opener.document.userInfo.mnname.value = document.getElementById("nickname").value;
+    }
+    
     if (opener != null) {
         opener.nickchkForm = null;
         self.close();

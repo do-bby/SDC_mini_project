@@ -236,7 +236,7 @@ $('.recovery .button').on('click', function(event) {
 									}
 									</script>
 						<!-- TABS CONTENT SIGNUP -->
-						<div id="signup-tab-content">
+						<div id="signup-tab-content">r
 							<form class="signup-form" action="/member" method="post" name="userInfo">
 							<input type="hidden" name="input" value="memberRegister"> 
 								<input type="text" class="input" id = "id" name="id" autocomplete="off" placeholder="아이디를 입력하세요" style="width: 75%;" required> 
