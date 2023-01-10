@@ -135,29 +135,32 @@ public class ReviewDAO {
 			return result;
 		}
 		
-		//정보 수정
-		public boolean update(ReviewVO vo) {
+		//리뷰 수정
+		public boolean updateReview(ReviewVO vo) {
 			Connection conn = ConnectDB.connect();
 			PreparedStatement pstmt = null;
 			try {
 				pstmt = conn.prepareStatement(
-						"update bootcamps set " + 
-						"goodcom = ?, " + 
-						"badcom = ?, " + 
-						"bscope = ? " +
-						"instsat = ? " +
-						"edusat = ? " +
-						"learnsat = ? " +
-						"bnum = ? " +
-						"mnum = ? " +
-						"where rnum = ?");
+						"update reviews "  
+						+  "set goodcom = ?, "
+						+ 	   "badcom = ?, "
+						+      "bscope = ?, "
+						+      "instsat = ?,"  
+						+      "edusat = ?, "
+						+      "learnsat = ?, "
+						+      "rdate = to_char(sysdate, 'YYYY.MM.DD'),"
+						+      "bnum = ?, "
+						+      "mnum = ?" 
+					   +" where rnum = ? "
+						+  "and bnum = ? "
+						+  "and mnum = ?");
 				
 				pstmt.setString(1, vo.getGood());
 				pstmt.setString(2, vo.getBad());
 				pstmt.setInt(3, vo.getScore());
-				pstmt.setInt(4,vo.getT_score());
-				pstmt.setInt(5, vo.getS_score());
-				pstmt.setInt(6, vo.getE_score());
+				pstmt.setInt(4,vo.getT_score()); //강사진
+				pstmt.setInt(5, vo.getS_score()); //교육지원
+				pstmt.setInt(6, vo.getE_score()); //학습환경
 				pstmt.setInt(7, vo.getB_id());
 				pstmt.setInt(8, vo.getM_id());
 				pstmt.setInt(9, vo.getId());
@@ -165,6 +168,24 @@ public class ReviewDAO {
 				return true;
 			} catch (SQLException e) {
 				System.err.println("update 과정에서 오류 발생 " + e);
+				return false;
+			} finally {
+				ConnectDB.close(conn);
+			}
+		}
+		
+		//리뷰삭제
+		public boolean deleteReview(int id) {
+			Connection conn = ConnectDB.connect();
+			PreparedStatement pstmt = null;
+			try {
+				pstmt = conn.prepareStatement("delete from reviews where rnum = ? and ");
+				if (pstmt.executeUpdate() != 0)
+					return true;
+				else
+					return false;
+			} catch (SQLException e) {
+				System.err.println("delete 과정에서 오류 발생 " + e);
 				return false;
 			} finally {
 				ConnectDB.close(conn);

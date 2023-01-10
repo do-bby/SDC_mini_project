@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import = "member.MemberVO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -125,12 +126,25 @@ $('.recovery .button').on('click', function(event) {
 				<!-- RECOVERY -->
 				<div class="recovery">
 					<h2>비밀번호 찾기</h2>
-					<p>비밀번호를 찾고자 하는 아이디를 입력하세요</p>
-					<form class="recovery-form" action="find_pwd" method="post">
-						<input type="text" class="input" id="user_recover" placeholder="이메일을 입력하세요">
+					<p>비밀번호를 찾고자 하는 아이디와 질문을 선택하세요</p>
+					<form class="recovery-form" action="login" method="post">
+						<input type="hidden" name="action" value="findpwd">
+						<input type="text" name="id" class="input" id="user_recover" placeholder="아이디를 입력하세요" required>
+						<select name="question">
+							<option value="none">==질문 선택==</option>
+							<option value="1">어머니의 성함은?</option>
+							<option value="2">아버지의 성함은?</option>
+							<option value="3">나의 보물1호는?</option>
+							<option value="4">기억에 남는 추억의 장소는?</option>
+							<option value="5">기억에 남는 추억의 선물은?</option>
+							<option value="6">인상 깊게 읽은 책 이름은?</option>
+							<option value="7">타시 태어나면 되고 싶은 것은?</option>
+							<option value="8">내가 좋아하는 책 이름은?</option>
+						</select>
+						<input placeholder="답변을 입력하세요." name="answer" required><br>
 						<input type="submit" class="button" value="Submit">
 					</form>
-					<p class="mssg">비밀번호 재설정을 위한 이메일이 발송되었습니다</p>
+					<!-- <p class="mssg">비밀번호 재설정을 위한 이메일이 발송되었습니다</p> -->
 				</div>
 
 				<!-- FORM -->
@@ -163,6 +177,19 @@ $('.recovery .button').on('click', function(event) {
 										class="forgot" href="#">비밀번호 찾기</a>
 								</p>
 							</div>
+						</div>
+						<!-- 새 비밀번호 설정 -->
+						<%	String findId = (String)request.getAttribute("findId");	%>
+						<div id="chainge-password" class="active">
+							<form class="login-form" action="login" method="post">
+								<input type="hidden" name="action" value="login">
+								<input type="text" class="input" id="user_login" name="id" autocomplete="off" placeholder="아이디를 입력하세요" required><br>
+								<input type="password" class="input" id="user_pass" name="pwd" autocomplete="off" placeholder="비밀번호를 입력하세요" required><br>
+								<aside>
+									<h4>${ msg2 }</h4>
+								</aside> 
+								<input type="submit" class="button" value="전송"><br>
+							</form>
 						</div>
 						<!-- TABS CONTENT SIGNUP -->
 						<div id="signup-tab-content">

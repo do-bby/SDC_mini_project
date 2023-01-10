@@ -34,34 +34,31 @@ public class ReviewServlet extends HttpServlet {
 		RequestDispatcher rd = request.getRequestDispatcher("BootReviewApp.jsp");
 		rd.forward(request, response);
 		
-		
-		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		request.setCharacterEncoding("utf-8");
 		HttpSession session = request.getSession();//세션 객체 생성
 		MemberDAO mDao = new MemberDAO();
+		ReviewDAO dao = new ReviewDAO();
 
 		//bootReviewApp.jsp에서 post 방식으로 넘어온 값들을 get하여 저장
-		request.setCharacterEncoding("utf-8");
 		String action = request.getParameter("action");
 		String goodMemo = request.getParameter("goodmemo");// 장점
 		String badMemo = request.getParameter("badmemo"); // 단점 
-		int bNum = Integer.parseInt(request.getParameter("bnum"));
+		int bNum = Integer.parseInt(request.getParameter("bnum")); //부트캠프넘버
 		int score = Integer.parseInt(request.getParameter("totalScore")); // 총점
 		int tScore = Integer.parseInt(request.getParameter("teachScore")); // 강사진만족도
 		int eScore = Integer.parseInt(request.getParameter("learnScore")); // 학습환경 만족도
 		int sScore = Integer.parseInt(request.getParameter("eduScore")); // 교육지원 수준
-		int mNum = mDao.getMember((String)session.getAttribute("login.id")).getmnum();
+		int mNum = mDao.getMember((String)session.getAttribute("login.id")).getmnum(); //멤버넘버
+		int rNum = 0; //rnum 받는 부분이 없어서 아직 값을 못넣음
 
 		String pattern = "yyyy.MM.dd";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		String writeDate = simpleDateFormat.format(new Date());
 		
 		
- 
-		ReviewDAO dao = new ReviewDAO();
 		// 후기작성
 		if(action.equals("insert")) {
 			ReviewVO vo = new ReviewVO();
@@ -85,17 +82,18 @@ public class ReviewServlet extends HttpServlet {
 			List<ReviewVO> list = dao.listAll();
 			if (list.size() > 0)
 				request.setAttribute("list", list);
-		}else {
+		}else if(action.equals("updateReview")){ //회원정보 수정
 			ReviewVO vo = new ReviewVO();
+			vo.setId(rNum);
 			vo.setGood(goodMemo);
 			vo.setBad(badMemo);
 			vo.setScore(score);
 			vo.setT_score(tScore);
 			vo.setE_score(eScore);
 			vo.setS_score(sScore);
-			vo.setB_id(1);
-			vo.setM_id(1);
-			boolean result = dao.update(vo);
+			vo.setB_id(bNum);
+			vo.setM_id(mNum);
+			boolean result = dao.updateReview(vo);
 			if (result) {
 				request.setAttribute("msg", "님의 글이 성공적으로 수정했어요^^");
 				
@@ -106,6 +104,8 @@ public class ReviewServlet extends HttpServlet {
 			List<ReviewVO> list = dao.listAll();
 			if (list.size() > 0)
 				request.setAttribute("list", list);
+		}else if(action.equals("delete")) {//회원정보 삭제
+			
 		}
 		
 		request.setAttribute("bnum", bNum);
