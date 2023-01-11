@@ -110,11 +110,8 @@ $('.recovery .button').on('click', function(event) {
 				<!-- LOGO -->
 				<div class="logo">
 					<!-- logo 대체 필요 -->
-					<a href="#"><img
-						src="/images/부트모아로고eng.png"
-						width=100%
-						height=100%
-						alt=""></a>
+					<p style='text-align:center;font-weight:bold;font-size:30px;margin-top:13px;color:white;'>BootMoA
+					</p>
 				</div>
 				<!-- TOGGLE -->
 				<div id="toggle-wrap">
