@@ -75,6 +75,41 @@ public class ReviewDAO {
 			return vo;
 		}
 		
+		//특정 회원이 쓴 리뷰 불러오기 (리뷰 수정용)
+		public List<ReviewVO> listOnelist(int mnum){
+			Connection conn = ConnectDB.connect();
+			Statement stmt = null;
+			ResultSet rs = null;
+			ReviewVO vo = null;
+			List<ReviewVO> list = new ArrayList<>();
+			System.out.println("1차");
+			try {
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery(
+						"select rnum,goodcom,badcom,bscope,instsat,edusat,learnsat,bnum,mnum from reviews where mnum = "+mnum);
+				System.out.println("2차");
+				while (rs.next()) {
+					vo = new ReviewVO();
+					vo.setId(rs.getInt("rnum"));
+					vo.setGood(rs.getString("goodcom"));
+					vo.setBad(rs.getString("badcom"));
+					vo.setScore(rs.getInt("bscope"));
+					vo.setT_score(rs.getInt("instsat"));
+					vo.setS_score(rs.getInt("edusat"));
+					vo.setE_score(rs.getInt("learnsat"));
+					vo.setB_id(rs.getInt("bnum"));
+					vo.setM_id(rs.getInt("mnum"));
+					list.add(vo);
+					System.out.println("list생성완료");
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				ConnectDB.close(conn);
+			}
+			return list;
+		}
+		
 		//특정 부트캠프의 리뷰 불러오기
 		public List<ReviewVO> TheBootcampList(int bnum){
 			Connection conn = ConnectDB.connect();

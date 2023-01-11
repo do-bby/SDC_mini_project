@@ -70,7 +70,7 @@ public class MemberServlet extends HttpServlet {
 			}
 			System.out.println(result);
 			request.setAttribute("member",vo);
-			request.getRequestDispatcher("/memberdesignpsy.jsp").forward(request,response);
+			request.getRequestDispatcher("/MemberDesign.jsp").forward(request,response);
 			
 		}else if(input.equals("infoRevise")) {			
 			String mid = request.getParameter("mid");

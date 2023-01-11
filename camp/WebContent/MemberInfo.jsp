@@ -150,7 +150,7 @@
 	}
 %>
 	</table>
-	<button type="button" onclick="location.href='BootCampMain.jsp'">메인페이지로 돌아가기</button>
+	<button type="button" onclick="location.href='bootMainYebin2.jsp'">메인페이지로 돌아가기</button>
 	<button type="button" onclick="location.href='MemberInfoRevise.jsp'">회원정보 수정</button>
 
 </div>
