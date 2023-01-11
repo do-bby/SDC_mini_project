@@ -91,8 +91,9 @@ function stars(num){
 		ArrayList<ReviewVO> list = (ArrayList<ReviewVO>) rdao.listOnelist(mnum); //ReviewDAO에서 int 값을 넣어서 ReviewVO 객체를 담은 리스트를 반환받음
 		
 		for(ReviewVO rvo : list){
-			%>																	<!-- date에러 나는 중, 숨기고 자동으로 업데이트 되도록 하는 것도 괜찮을 듯 -->
-		<h2><%=mDao.getMember(rvo.getM_id()).getnname() %>님의 리뷰 수정 &nbsp;|&nbsp;<%= rvo.getWriteDate()%> <h2><!-- 수정날짜로 바꾸는 메서드 -->
+			%>																	
+		<h2><%=mDao.getMember(rvo.getM_id()).getnname() %>님의 리뷰 수정 <h2>
+		<input type="hidden" name="bnum" value="<%=rvo.getB_id()%>">
 		<table>
 		<tr>
 		<td id="category">강사진 만족도</td><td>

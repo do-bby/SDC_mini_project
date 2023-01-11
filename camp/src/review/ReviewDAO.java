@@ -199,6 +199,8 @@ public class ReviewDAO {
 				pstmt.setInt(7, vo.getB_id());
 				pstmt.setInt(8, vo.getM_id());
 				pstmt.setInt(9, vo.getId());
+				pstmt.setInt(10, vo.getB_id());
+				pstmt.setInt(11, vo.getM_id());
 				pstmt.executeUpdate();
 				return true;
 			} catch (SQLException e) {

@@ -18,9 +18,28 @@
     
 }
 	
+
 	* {
 	font-family:'SUIT-Regular';
+	margin:0;
+	padding:0;
 	
+	}
+	
+	
+	#wrap{
+		overflow: auto;
+		margin-left: auto;
+		margin-right:auto;
+    	padding-top: 3px;
+    	width: 80%;
+    	height:100vh;
+    	background: #ffff;
+
+	}
+	
+	body{
+	 background: #252934;
 	}
 	
 	header {
@@ -43,18 +62,21 @@
 	#section2,#section3 {
 	
 		border-color:#B9B5B5;
-		border-width:3px;
+		border-width:2px;
 		border-style:solid;
 		margin:20px auto;
 		width:830px; 
-		border-radius:10px;
+		border-radius:4px;
 		
 	}
 	
-
+	.buttonarticle{
+		height:30px;
+	}
 	
 	article{
-		margin : 20px;
+		height: auto;
+		margin : 10px;
 	}
 
 	.topBtn{
@@ -82,6 +104,7 @@
 	}
 	
 	.BtnReview{
+		font-size: 16px;
 		box-shadow:inset 0px -3px 7px -36px #29bbff;
 		background:linear-gradient(to bottom, #95cff0 5%, #058fff 100%);
 		background-color:#95cff0;
@@ -118,7 +141,7 @@
 	#bootLogo{
 		position:absolute;
 		z-index:1;
-		border-radius:10px;
+		
 	}
 	
 	#aname{
@@ -140,18 +163,18 @@
 	top:20px;
 	}
 
-	#wrap{
-		width:100%;
-		margin:0,auto;
-	}
 	
 	#BtnInsertReview{
-		position:relative;
-		left:400px;
+		margin-left: auto;
+		float:right;
 	
 	}
 	
+	
 	.mapAndScore{
+		padding: 20px;
+		margin-left: auto;
+		margin-right: auto;
 		display:inline-block;
 	}
 	.star{
@@ -160,18 +183,17 @@
 	}
 	
 	.reviewBox{
-		border-color:#B9B5B5;
-		border-width:3px;
+		border:0;
 		border-style:solid;
 		height:80px;
 		padding:10px;
+		overflow: hidden;
 		border-radius:10px;
 		position:relative;
 	}
 	
 	#reviewBox{
-		border-color:#B9B5B5;
-		border-width:3px;
+		border: 0;
 		border-style:solid;
 		border-radius:10px;
 		height:280px;
@@ -191,6 +213,9 @@
 	}
 	
 	#reviewBox2{
+		padding: 10px;
+		margin-top:quto;
+		margin-bottom:auto;
 	 	width:400px;
 	 	position:relative;
 	 	left:20px;
@@ -209,14 +234,14 @@
 		background:linear-gradient(to bottom, #95cff0 5%, #058fff 100%);
 		background-color:#95cff0;
 		border-radius:3px;
-		border:1px solid #0b0e07;
+		border:0;
 		display:inline-block;
 		cursor:pointer;
 		color:#ffffff;
-		padding:10px 30px;
+		padding:5px;
 		text-decoration:none;
 		text-shadow:0px 0px 0px #365dd1;
-		margin-left:298px;
+		margin-right: 10px;
 	}
 	
 	#nameDate{
@@ -239,8 +264,6 @@
 </head>
 
 <body>
-<!-- 임의로 버튼 위치를 넣어 놓은 상태 -->
- <button type="button" onclick="location.href='bootreviewRevise.jsp'">리뷰 수정</button>
 <div id="wrap">
 	<header>
 		<a href ='/camp/goReviews'><img id="websiteLogo" src=".\images\부트모아로고3.png" ></a>
@@ -289,21 +312,35 @@
 	%>		
 		
 		
-		<article>
+		<article class="buttonarticle">
 			<div id="BtnInsertReview">
-				<button class="BtnReview" onclick="loginAlert(<%=bvo.getId()%>,<%=session.getAttribute("isLogOn")%>)">리뷰 등록하기</button>
-			</div>
-			<div id="BtnInsertReview">
-				<button class="BtnReview" onclick="location.href='/camp/update?bnum=<%=bvo.getId()%>'">부트캠프 수정하기</button>
-			</div>
-			<div id="BtnInsertReview">
-				<button class="BtnReview" onclick="location.href='/camp/bootcamp?action=delete&bnum=<%= bvo.getId()%>'">부트캠프 삭제하기</button>
+				<button class="BtnReview" onclick="location.href='/camp/update?bnum=<%=bvo.getId()%>'">부트캠프 수정</button>
+				<button class="BtnReview" onclick="location.href='/camp/bootcamp?action=delete&bnum=<%= bvo.getId()%>'">부트캠프 삭제</button>
+				<button class="BtnReview" onclick="loginAlert(<%=bvo.getId()%>,<%=session.getAttribute("isLogOn")%>)">리뷰 등록</button>
+				<button class="BtnReview" type="button" onclick="location.href='bootreviewRevise.jsp'">리뷰 수정</button>
 			</div>
 		</article>
 		
 	</section>
 	
 	<section id="section2">
+	<script type="text/javascript">
+		function stars(num){
+			if(4< num && num <= 5){
+				document.write("⭐⭐⭐⭐⭐");
+			}else if(3< num && num <= 4){
+				document.write("⭐⭐⭐⭐");
+			}else if(2 < num && num<= 3){
+				document.write("⭐⭐⭐");
+			}else if(1< num && num <= 2){
+				document.write("⭐⭐");
+			}else{
+				document.write("⭐");
+			}
+			
+		}
+	
+	</script>
 		<article class="mapAndScore">
 		<div id="map" style="width:300px; height:200px;"></div>
 		</article>
@@ -322,11 +359,11 @@
 		
 		%>			
 				<article class="mapAndScore">
-					<p><span class="star" style="width:100%;">평균 만족도</span></p>
-					<p><span class="star" style="width:100%;">강사진 만족도<%= scoreList.get(bnum-1).getT_score() %></span></p>
-					<p><span class="star" style="width:100%;">학습환경 만족도<%= scoreList.get(bnum-1).getE_score() %></span></p>
-					<p><span class="star" style="width:100%;">교육지원 만족도<%= scoreList.get(bnum-1).getS_score() %></span></p>
-					<p><span class="star" style="width:100%;">총점<%=scoreList.get(bnum-1).getScore() %></span></p>
+					<p><span class="star" style="width:100%;font-weight:bold;">평균 만족도</span></p><br>
+					<p><span class="star" style="width:100%;">강사진 만족도&emsp;<script>stars(<%= scoreList.get(bnum-1).getT_score() %>)</script></span></p><br>
+					<p><span class="star" style="width:100%;">학습환경 만족도&emsp;<script>stars(<%= scoreList.get(bnum-1).getE_score() %>)</script></span></p><br>
+					<p><span class="star" style="width:100%;">교육지원 만족도&emsp;<script>stars(<%= scoreList.get(bnum-1).getS_score() %>)</script></span></p><br>
+					<p><span class="star" style="width:100%;">총점&emsp;<script>stars(<%=scoreList.get(bnum-1).getScore() %>)</script></span></p>
 					
 				</article>
 				<%
@@ -343,23 +380,7 @@
 	
 	<section id="section3"">
 	
-	<script type="text/javascript">
-		function stars(num){
-			if(num == 5){
-				document.write("⭐⭐⭐⭐⭐");
-			}else if( num == 4){
-				document.write("⭐⭐⭐⭐");
-			}else if( num == 3){
-				document.write("⭐⭐⭐");
-			}else if( num == 2){
-				document.write("⭐⭐");
-			}else{
-				document.write("⭐");
-			}
-			
-		}
 	
-	</script>
 	<%
 	
 	MemberDAO mDao = new MemberDAO();
@@ -374,15 +395,15 @@
 				<div id="reviewBox"> 
 					<div id="reviewBox1">
 					<img src=".\images\기본프로필사진.png" style="border-radius:70%;" width="70px;" height="70px;">
-					<div id="nameDate"><%= mDao.getMember(rvo.getM_id()).getnname() %>|<%= rvo.getWriteDate()%> </div>
+					<div id="nameDate"><%= mDao.getMember(rvo.getM_id()).getnname() %><br><%= rvo.getWriteDate()%> </div>
 					<div class = score>강사진 만족도 <script>stars(<%=rvo.getT_score()%>)</script></div>
 					<div class = score>학습환경 만족도<script>stars(<%=rvo.getE_score() %>)</script></div>
 					<div class = score>교육지원 수준<script>stars(<%=rvo.getS_score() %>)</script></div>
 					</div>
 					<div id="reviewBox2">
-					<span style="color:red;">장점</span>
-					<div class="reviewBox"><%=rvo.getGood() %></div>
-					<span class="text" style="color:blue">단점</span>
+					<span style="color:red;font-weight:bold;">&nbsp;장점</span>
+					<div class="reviewBox"><%=rvo.getGood() %></div><br>
+					<span class="text" style="color:blue;font-weight:bold;">&nbsp;단점</span>
 					<div class="reviewBox"><%=rvo.getBad() %></div>
 					</div>
 				</div>
