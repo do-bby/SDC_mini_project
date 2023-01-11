@@ -62,7 +62,7 @@ public class MemberLoginServlet extends HttpServlet {
 				
 				response.sendRedirect("bootcamp"); //해당 링크(여기선 서블릿의 @WebServlet 값)로 요청함
 			} else {
-				request.setAttribute("msg", " 아이디 또는 비밀번호를 잘못 입력했습니다. <br> 입력하신 내용을 다시 확인해주세요.");//msg 부분에 이 값을 띄워줌
+				request.setAttribute("msgin", " 아이디 또는 비밀번호를 잘못 입력했습니다. <br> 입력하신 내용을 다시 확인해주세요.");//msg 부분에 이 값을 띄워줌
 //				RequestDispatcher rd = request.getRequestDispatcher("/MemberLogin.jsp"); //로그인 실패시 이 페이지로 이동
 				RequestDispatcher rd = request.getRequestDispatcher("/MemberDesign.jsp"); //로그인 실패시 이 페이지로 이동
 				rd.forward(request, response);

@@ -169,7 +169,7 @@ $('.recovery .button').on('click', function(event) {
 								<input type="text" class="input" id="user_login" name="id" autocomplete="off" placeholder="아이디를 입력하세요" required><br>
 								<input type="password" class="input" id="user_pass" name="pwd" autocomplete="off" placeholder="비밀번호를 입력하세요" required><br>
 								<aside>
-									<h4>${ msg }</h4>
+									<h4>${ msgin }</h4>
 								</aside> 
 								<input type="submit" class="button" value="로그인"><br>
 							</form>
