@@ -19,7 +19,7 @@ public class BootcampServlet2 extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		String keyword = request.getParameter("keyword");
-		String id = request.getParameter("bnum");//??
+		String id = request.getParameter("bnum");
 		String action = request.getParameter("action");
 		System.out.println(action);
 		BootcampDAO2 dao = new BootcampDAO2();
@@ -50,7 +50,7 @@ public class BootcampServlet2 extends HttpServlet {
 				
 			}
 		}
-		RequestDispatcher rd = request.getRequestDispatcher("BootCampMain.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("bootMainYebin3.jsp");
 		rd.forward(request, response);
 		
 	}
@@ -91,21 +91,6 @@ public class BootcampServlet2 extends HttpServlet {
 				request.setAttribute("msg", "성공적으로 등록되었습니다.");			
 			} else {
 				request.setAttribute("msg", "등록되지 않았습니다.");
-			}
-		} else {
-			BootcampVO2 vo = new BootcampVO2();
-			vo.setB_name(b_name);
-			vo.setA_name(a_name);
-			vo.setRogo(rogo);
-			vo.setRealimg(realimg);
-			vo.setSite(site);
-			vo.setM_id(Integer.parseInt("1"));
-			vo.setAddress("뮤");
-			boolean result = dao.update(vo);
-			if (result) {			
-				request.setAttribute("msg", "성공적으로 수정되었습니다.");			
-			} else {
-				request.setAttribute("msg", "수정되지 않았습니다.");
 			}
 		}
 		request.setAttribute("list", dao.listAll());

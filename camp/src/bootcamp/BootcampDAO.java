@@ -81,19 +81,19 @@ public class BootcampDAO {
 		List<BootcampVO> list = new ArrayList<>();
 		try {
 			pstmt = conn.prepareStatement(
-					"select bnum,bprogram,bacademy,rogo,realimg,url,mnum from bootcamps where bprogram = ? or bacademy = ?");
+					"select bnum,bprogram,bacademy,rogo,realimg,url,mnum,adress from bootcamps where bprogram LIKE '%' || ? || '%'");
 			pstmt.setString(1, name);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				vo = new BootcampVO();
-				vo.setId(rs.getInt("id"));
-				vo.setB_name(rs.getString("b_name"));
-				vo.setA_name(rs.getString("a_name"));
+				vo.setId(rs.getInt("bnum"));
+				vo.setB_name(rs.getString("bprogram"));
+				vo.setA_name(rs.getString("bacademy"));
 				vo.setRogo(rs.getString("rogo"));
 				vo.setRealimg(rs.getString("realimg"));
-				vo.setSite(rs.getString("site"));
-				vo.setM_id(rs.getInt("m_id"));
-			
+				vo.setSite(rs.getString("url"));
+				vo.setM_id(rs.getInt("mnum"));
+				vo.setAddress(rs.getString("adress"));
 				list.add(vo);
 			}
 		} catch (SQLException e) {
@@ -105,76 +105,85 @@ public class BootcampDAO {
 	}
 	
 	//부트캠프 등록하기
-	public boolean insert(BootcampVO vo) {
-		Connection conn = ConnectDB.connect();
-		boolean result = true;
-		try {
-			PreparedStatement pstmt = conn.prepareStatement("insert into bootcamps values(bootcamps_seq.nextval,?,?,?,?,?,?)");
-			pstmt.setString(2, vo.getB_name());
-			pstmt.setString(3, vo.getA_name());
-			pstmt.setString(4, vo.getRogo());
-			pstmt.setString(5,vo.getRealimg());
-			pstmt.setString(6, vo.getSite());
-			pstmt.setInt(7, vo.getM_id());
-			
-		}catch(SQLException e) {
-			result = false;
-			e.printStackTrace();
-		}finally {
-			ConnectDB.close(conn);
+		public boolean insert(BootcampVO vo) {
+			Connection conn = ConnectDB.connect();
+			boolean result = true;
+			try {
+				System.out.println(vo.toString());
+				PreparedStatement pstmt = conn.prepareStatement("insert into bootcamps values(bootcampsseq.nextval,?,?,?,?,?,?,?)");
+				pstmt.setString(1, vo.getB_name());
+				pstmt.setString(2, vo.getA_name());
+				pstmt.setString(3, vo.getRogo());
+				pstmt.setString(4,vo.getRealimg());
+				pstmt.setString(5, vo.getSite());
+				pstmt.setInt(6, vo.getM_id());
+				pstmt.setString(7,vo.getAddress());
+				pstmt.executeUpdate();
+				System.out.println(vo.getB_name());
+				System.out.println(vo.getA_name());
+			}catch(SQLException e) {
+				result = false;
+				e.printStackTrace();
+			}finally {
+				ConnectDB.close(conn);
+			}
+			return result;
 		}
-		return result;
-	}
 	
-	//정보 수정
-	public boolean update(BootcampVO vo) {
-		Connection conn = ConnectDB.connect();
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = conn.prepareStatement(
-					"update bootcamps set " + 
-					"bprogram = ?, " + 
-					"bacademy = ?, " + 
-					"rogo = ? " +
-					"realimg = ? " +
-					"site = ? " +
-					"mnum = ? " +
-					"where bnum = ?");
-			
-			pstmt.setString(1, vo.getB_name());
-			pstmt.setString(2, vo.getA_name());
-			pstmt.setString(3, vo.getRogo());
-			pstmt.setString(4,vo.getRealimg());
-			pstmt.setString(5, vo.getSite());
-			pstmt.setInt(6, vo.getM_id());
-			pstmt.setInt(7, vo.getId());
-			pstmt.executeUpdate();
-			return true;
-		} catch (SQLException e) {
-			System.err.println("update 과정에서 오류 발생 " + e);
-			return false;
-		} finally {
-			ConnectDB.close(conn);
-		}
-	}
-	
-	//삭제
-	public boolean delete(int id) {
-		Connection conn = ConnectDB.connect();
-		PreparedStatement pstmt = null;
-		try {
-			pstmt = conn.prepareStatement("delete from bootcamps where mnum = " + id);
-			if (pstmt.executeUpdate() != 0)
+		//정보 수정
+		public boolean update(BootcampVO vo) {
+			Connection conn = ConnectDB.connect();
+			PreparedStatement pstmt = null;
+			try {
+				System.out.println(vo.toString());
+				pstmt = conn.prepareStatement(
+						"update bootcamps set " + 
+						"bprogram = ?, " + 
+						"bacademy = ?, " + 
+						"rogo = ?, " +
+						"realimg = ?, " +
+						"url = ?, " +
+						"mnum = ?, " +
+						"adress = ? " +
+						"where bnum = ?");
+				
+				pstmt.setString(1, vo.getB_name());
+				pstmt.setString(2, vo.getA_name());
+				pstmt.setString(3, vo.getRogo());
+				pstmt.setString(4,vo.getRealimg());
+				pstmt.setString(5, vo.getSite());
+				pstmt.setInt(6, vo.getM_id());
+				pstmt.setString(7, vo.getAddress());
+				pstmt.setInt(8, vo.getId());
+				
+				pstmt.executeUpdate();
 				return true;
-			else
+			} catch (SQLException e) {
+				System.err.println("update 과정에서 오류 발생 " + e);
 				return false;
-		} catch (SQLException e) {
-			System.err.println("delete 과정에서 오류 발생 " + e);
-			return false;
-		} finally {
-			ConnectDB.close(conn);
+			} finally {
+				ConnectDB.close(conn);
+			}
 		}
-	}
+	
+		//삭제
+		public boolean delete(int id) {
+			Connection conn = ConnectDB.connect();
+			PreparedStatement pstmt = null;
+			try {
+				System.out.println(id);
+				pstmt = conn.prepareStatement("delete from bootcamps where bnum = " + id);
+				if (pstmt.executeUpdate() != 0)
+					return true;
+				else
+					return false;
+			} catch (SQLException e) {
+				System.err.println("delete 과정에서 오류 발생 " + e);
+				return false;
+			} finally {
+				ConnectDB.close(conn);
+			}
+		}
 	
 	
 

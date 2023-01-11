@@ -20,18 +20,30 @@ public class goReviewsServlet2 extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int bnum = Integer.parseInt(request.getParameter("bnum"));
+		String bnum = request.getParameter("bnum");
 		BootcampDAO bDao = new BootcampDAO();
 		ReviewDAO rDao = new ReviewDAO();
 		// BootMainYebin.jsp에서 bnum 이라는 이름으로 부트캠프 번호가 넘어옴 -> bnum에 맞는 부트캠프를 검색해서 그 객체의 변수들을 반환 
 		
-		
-		if(bnum != 0) {
-			request.setAttribute("bvo", bDao.listOne(bnum));
-			request.setAttribute("reviewList", rDao.TheBootcampList(bnum) );
-			RequestDispatcher rd = request.getRequestDispatcher("BootcampEdit.jsp");
-			//BootReviews.jsp에 버트만 추가
+		if(bnum != null) {
+			//요청에서 받아들인 bnum을 정수로 변환 
+			int bNum = Integer.parseInt(bnum);
+			
+			// 요청받은 부트캠프 번호(bnum)에 해당하는 부트캠포 정보를 반환해서 넘겨줌
+			request.setAttribute("bvo", bDao.listOne(bNum));
+			
+			// 요청받은 부트캠프 번호(bnum)에 해당하는 부트캠프에 대한 리뷰 리스트들을 넘겨줌
+			request.setAttribute("reviewList", rDao.TheBootcampList(bNum) );
+			
+			// 요청받은 부트캠프 번호(bnum)을 다시 넘겨줌 
+			request.setAttribute("bnum", bNum);
+			RequestDispatcher rd = request.getRequestDispatcher("bootReviews2.jsp");
 			rd.forward(request, response);
+		}else {
+			request.setAttribute("list", bDao.listAll());
+			RequestDispatcher rd = request.getRequestDispatcher("bootMainYebin3.jsp");
+			rd.forward(request, response);
+			
 		}
 		
 	}
@@ -83,3 +95,4 @@ public class goReviewsServlet2 extends HttpServlet {
 	}
 
 }
+

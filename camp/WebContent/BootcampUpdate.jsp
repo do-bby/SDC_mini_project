@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="review.ReviewVO,bootcamp.BootcampVO2,java.util.ArrayList"%>
+<%@ page import="review.ReviewVO,bootcamp.BootcampVO,java.util.ArrayList"%>
 
 <!DOCTYPE html>
 <html>
@@ -177,7 +177,7 @@
          
    </section>
 <%
-	BootcampVO2 vo = (BootcampVO2)request.getAttribute("BootcampUpdate"); 
+	BootcampVO vo = (BootcampVO)request.getAttribute("BootcampUpdate"); 
 %>
    <section id="section2">
    <form method="post" action="/camp/update" >

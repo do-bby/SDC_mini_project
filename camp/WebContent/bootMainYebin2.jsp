@@ -102,6 +102,9 @@
 							<button type="submit" class="topBtn" value="전송">로그인</button>
 						</form>
 					</div>
+					<div class="btn-box">
+						<button class="topBtn" onclick="location.href='/camp/goBootcamps' ">부트캠프등록하기</button>
+					</div>
 				<%
 					}
 				%>
@@ -116,13 +119,13 @@
   <!-- find section -->
   <section class="find_section ">
     <div class="container">
-      <form action="">
+      <form method = "get" action="/camp/bootcamp">
         <div class=" form-row">
           <div class="col-md-5">
-            <input type="text" class="form-control" placeholder="부트캠프 후기가 궁금할 떈 부트모아 ">
+            <input type="search" class="form-control" name="keyword" size="15" placeholder="부트캠프 후기가 궁금할 떈 부트모아 ">
           </div>
           <div class="col-md-2">
-            <button type="submit" class="">
+            <button type="submit" class="form-control">
               search
             </button>
           </div>

@@ -19,8 +19,8 @@ public class CampupdateServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String campId = request.getParameter("bnum");
-		BootcampDAO2 dao = new BootcampDAO2();
-		BootcampVO2 vo = new BootcampVO2();
+		BootcampDAO dao = new BootcampDAO();
+		BootcampVO vo = new BootcampVO();
 		vo = dao.listOne(Integer.parseInt(campId));
 		
 		request.setAttribute("BootcampUpdate", vo);
@@ -29,8 +29,8 @@ public class CampupdateServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		BootcampDAO2 dao = new BootcampDAO2();
-		BootcampVO2 vo = new BootcampVO2();
+		BootcampDAO dao = new BootcampDAO();
+		BootcampVO vo = new BootcampVO();
 		
 		request.setCharacterEncoding("UTF-8");
 		String campId = request.getParameter("bnum");

@@ -178,7 +178,7 @@
 	</section>
 
 	<section id="section2">
-	<form method="post" action="/camp/bootcamp2" >
+	<form method="post" action="/camp/bootcamp" >
 			<article>
 			<input type="hidden" name="action" value="insert">
 			<p>부트캠프이름</p>

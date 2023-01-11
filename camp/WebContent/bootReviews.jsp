@@ -293,8 +293,13 @@
 			<div id="BtnInsertReview">
 				<button class="BtnReview" onclick="loginAlert(<%=bvo.getId()%>,<%=session.getAttribute("isLogOn")%>)">리뷰 등록하기</button>
 			</div>
+			<div id="BtnInsertReview">
+				<button class="BtnReview" onclick="location.href='/camp/update?bnum=<%=bvo.getId()%>'">부트캠프 수정하기</button>
+			</div>
+			<div id="BtnInsertReview">
+				<button class="BtnReview" onclick="location.href='/camp/bootcamp?action=delete&bnum=<%= bvo.getId()%>'">부트캠프 삭제하기</button>
+			</div>
 		</article>
-		
 		
 	</section>
 	
