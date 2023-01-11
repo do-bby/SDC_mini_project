@@ -18,8 +18,9 @@ public class MemberLoginServlet extends HttpServlet {
 
 	//로그인정보를 get로 받아 처리하는 부분
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			RequestDispatcher rd = request.getRequestDispatcher("/MemberLogin.jsp");
-			rd.forward(request, response);
+//		RequestDispatcher rd = request.getRequestDispatcher("/MemberLogin.jsp");
+		RequestDispatcher rd = request.getRequestDispatcher("/MemberDesign.jsp");
+		rd.forward(request, response);
 	}
 	
 	//로그인정보를 post로 받아 처리하는 부분
@@ -57,16 +58,18 @@ public class MemberLoginServlet extends HttpServlet {
 				session.setAttribute("login.id", id);	//id를 세션에 저장
 				session.setAttribute("login.pwd", pwd); //pwd를 세션에 저장
 				session.setAttribute("login.mnum", mnum); //mnum을 세션에 저장
-				session.setAttribute("loginVO", mDao.getMember((String)session.getAttribute("login.id")));
+				session.setAttribute("loginVO", mDao.getMember((String)session.getAttribute("login.id"))); //객체정보를 세션에 담아줌
 				
 				response.sendRedirect("bootcamp"); //해당 링크(여기선 서블릿의 @WebServlet 값)로 요청함
 			} else {
 				request.setAttribute("msg", " 아이디 또는 비밀번호를 잘못 입력했습니다. <br> 입력하신 내용을 다시 확인해주세요.");//msg 부분에 이 값을 띄워줌
-				RequestDispatcher rd = request.getRequestDispatcher("/MemberLogin.jsp"); //로그인 실패시 이 페이지로 이동
+//				RequestDispatcher rd = request.getRequestDispatcher("/MemberLogin.jsp"); //로그인 실패시 이 페이지로 이동
+				RequestDispatcher rd = request.getRequestDispatcher("/MemberDesign.jsp"); //로그인 실패시 이 페이지로 이동
 				rd.forward(request, response);
 			}
 			
-		}else if(action.equals("findpwd")) { //action 값이 findpwd 이면
+		}else if(action.equals("findpwd")) { //비밀번호찾기
+			System.out.print("비밀번호 찾기 실행됨");
 			boolean result = dao.selectPwd(vo);
 			//아이디, 질문, 답변 체크
 			if(result) {
