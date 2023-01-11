@@ -104,7 +104,7 @@
 		</tr>
 		<tr>
 			<td>새 비밀번호 확인</td>
-			<td><input type="password" placeholder="새 비밀번호 확인" name="checkNewPwd" required><br>
+			<td><input type="password" placeholder="새 비밀번호 확인" name="checkNewPwd" required style="width:85%;"><br>
 		</tr>
 	</table>
 	<input type="submit" class="infobutton" value="수정 완료">
@@ -120,7 +120,6 @@
 	} 
 %>
 </div>
-<body>
 
 	<!-- 새 비밀번호 설정창 -->
 	<%-- <form method="post" action="login">
